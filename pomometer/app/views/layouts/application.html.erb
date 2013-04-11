@@ -7,8 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+	<h1>Welcome to the Pomometer!</h1>
+	<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+    <%= link_to 'Projects Home', projects_path %>
+	
+	<%= yield %>
 
 </body>
 </html>
