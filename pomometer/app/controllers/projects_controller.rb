@@ -2,7 +2,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.sort_by(&:name)
+    #@projects = Project.all.sort_by(&:name)
+    @projects = Project.find(:all, :order => "name collate NOCASE")
     
     respond_to do |format|
       format.html # index.html.erb
