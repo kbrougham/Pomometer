@@ -7,11 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<h1>Welcome to the Pomometer!</h1>
-	<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
-    <%= link_to 'Projects Home', projects_path %>
-	
-	<%= yield %>
+	<table width='100%'>
+		<tr>
+			<td width = '10%'>
+				<!--Image here -->
+			</td>
 
+			<td class='banner' width='80%'>				
+				<h1>Welcome to the Pomometer!</h1>
+				<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+			</td>
+
+			<td width='10%'>
+				<!--Image Here -->
+			</td>
+		</tr>
+		<tr>
+			<td width='10%' rowspan='2' class='sidepanel'>
+				<!--left panel-->
+			</td>
+			<td width='10%' class="navbar">	
+			    <%= link_to 'Projects Home', projects_path %>
+			    <hr/>
+			</td>
+			<td width='10%' rowspan='2' class='sidepanel'>
+				<!-- right panel -->
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table class='main'>
+					<%= yield %>
+				</table>
+			</td>
+		</tr>		
+	</table>
 </body>
 </html>

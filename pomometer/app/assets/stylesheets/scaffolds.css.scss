@@ -1,3 +1,65 @@
+$red_text: #ca0000;
+$darker_red_text: #a00; 
+$green_text: #008000;
+$darker_green_text: #003500;
+
+.red_text {
+  color: $red_text;
+}
+
+.green_text {
+  color: $green_text;  
+}
+
+.sidepanel {
+  background-color: $red_text;
+}
+
+.banner {
+  text-align: center;
+  color: $red_text;
+}
+
+.navbar{
+  text-align: center;
+  a {
+    color: $red_text;
+    &:visited { color:$darker_red_text;}
+    &:hover { color: #fff; background-color: #000;}
+  }
+}
+
+.main {
+  margin: auto;  
+}
+
+hr {
+  color:$red_text;
+  background-color:$red_text;
+  height: 3px;
+}
+
+h1 {
+  color:$red_text;
+}
+
+h4 {
+  a{
+    color:$green_text;
+    &:visited { color:$darker_green_text;}
+    &:hover { color: #fff; background-color: #000}
+  }
+}
+
+.alternating_even {
+  background-color: #B3EE3A;
+}
+
+.alternating_odd {
+  
+}
+/* default */
+
 body {
   background-color: #fff;
   color: #333;
@@ -19,9 +81,9 @@ pre {
 }
 
 a {
-  color: #000;
+  color: #333;
   &:visited {
-    color: #666;
+    color: #000;
   }
   &:hover {
     color: #fff;
@@ -30,9 +92,6 @@ a {
 }
 
 div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
 }
 
 #notice {

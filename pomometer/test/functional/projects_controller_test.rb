@@ -3,6 +3,9 @@ require 'test_helper'
 class ProjectsControllerTest < ActionController::TestCase
   setup do
     @project = projects(:one)
+    @update = {
+      name: 'Tester Name'
+    }
   end
 
   test "should get index" do
@@ -18,7 +21,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should create project" do
     assert_difference('Project.count') do
-      post :create, project: { name: @project.name }
+      post :create, project: @update
     end
 
     assert_redirected_to project_path(assigns(:project))
@@ -35,7 +38,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "should update project" do
-    put :update, id: @project, project: { name: @project.name }
+    put :update, id: @project.to_param, project: @update
     assert_redirected_to project_path(assigns(:project))
   end
 

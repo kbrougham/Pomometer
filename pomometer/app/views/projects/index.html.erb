@@ -1,24 +1,18 @@
-<table>
   <tr>
     <td>
       <h1>Project List</h1>
     </td>
-    <td>
+    <td colspan='2'>
       <h4><%= link_to 'New Project', new_project_path %></h4>
     </td>
   </tr>
-</table>
 
-<table>
 <% @projects.each do |project| %>
-  <tr>
+  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= link_to project.name, project %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
     <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-</table>
-
-<br />
 
 
