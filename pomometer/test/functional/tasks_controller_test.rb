@@ -6,7 +6,7 @@ class TasksControllerTest < ActionController::TestCase
     @update = {
       name: 'My Task',
       description: 'To Test My Model',
-      effort: 5
+      effort: 5,
       project_id: 1
     }
   end
