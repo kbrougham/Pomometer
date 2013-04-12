@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     #@projects = Project.all.sort_by(&:name)
-    @projects = Project.order("name ASC")
+    @projects = Project.order("lower(name) ASC")
     
     respond_to do |format|
       format.html # index.html.erb
