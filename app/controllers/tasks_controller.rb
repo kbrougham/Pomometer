@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.find(:all, :order => "name collate NOCASE")
+    @tasks = Task.order("name ASC")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     #@projects = Project.all.sort_by(&:name)
-    @projects = Project.find(:all, :order => "name collate NOCASE")
+    @projects = Project.order("lower(name) ASC")
     
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @tasks = Task.where(:project_id => params[:id]).all
+    @tasks = Task.where(:project_id => params[:id]).order("name ASC")
 
     respond_to do |format|
       format.html # show.html.erb
