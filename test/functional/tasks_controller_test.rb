@@ -27,7 +27,7 @@ class TasksControllerTest < ActionController::TestCase
       post :create, task: @update
     end
 
-    assert_redirected_to task_path(assigns(:task))
+    assert_redirected_to task_path(assigns(:project))
   end
 
   test "should show task" do
@@ -42,7 +42,7 @@ class TasksControllerTest < ActionController::TestCase
 
   test "should update task" do
     put :update, id: @task.to_param, task: @update
-    assert_redirected_to task_path(assigns(:task))
+    assert_redirected_to task_path(assigns(:project))
   end
 
   test "should destroy task" do

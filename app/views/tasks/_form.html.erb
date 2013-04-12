@@ -25,7 +25,7 @@
   </div> 
   <div class="field">
     <%= f.label :project_id %><br />
-    <%= f.collection_select(:project_id, Project.find(:all, :order => "name collate NOCASE"), :id, :name ) %>
+    <%= f.collection_select(:project_id, Project.order("name ASC"), :id, :name ) %>
   </div>
   <div class="actions">
     <%= f.submit %>
