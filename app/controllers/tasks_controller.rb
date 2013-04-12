@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @project = Project.where(:id => @task.project_id).all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +36,18 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    @project = Project.where(:id => @task.project_id).all
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
+    @project = Project.where(:id => @task.project_id).all
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to @project, notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
       else
         format.html { render action: "new" }
@@ -57,10 +60,11 @@ class TasksController < ApplicationController
   # PUT /tasks/1.json
   def update
     @task = Task.find(params[:id])
+    @project = Project.where(:id => @task.project_id).all
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,10 +77,11 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task = Task.find(params[:id])
+    @project = Project.where(:id => @task.project_id).all
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to @project }
       format.json { head :no_content }
     end
   end
