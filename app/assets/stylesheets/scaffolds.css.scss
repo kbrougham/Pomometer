@@ -112,11 +112,14 @@ div {
 
 #notice {
   color: green;
+  text-align: center;
 }
 
 .field_with_errors {
   padding: 2px;
-  background-color: red;
+  background-color: white;
+  border: 2px dashed red;
+  margin: auto;
   display: table;
 }
 
@@ -125,10 +128,13 @@ div {
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 0;
+  margin: auto;
   margin-bottom: 20px;
   background-color: #f0f0f0;
+  align: center;
+
   h2 {
-    text-align: left;
+    text-align: center;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
     font-size: 12px;

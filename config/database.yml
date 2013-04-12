@@ -20,8 +20,5 @@ test:
 
 production:
   adapter: postgres
-  database: pomometer_production
-  username: pomometer
-  password: pomometer
   pool: 5
   timeout: 5000
