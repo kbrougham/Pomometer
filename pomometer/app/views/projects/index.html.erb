@@ -14,5 +14,10 @@
     <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+<% if @projects.empty? %>
+  <tr class="alternating_even">
+    <td colspan='3'><em>There are no current projects</em></td>
+  </tr>
+<% end %>
 
 
