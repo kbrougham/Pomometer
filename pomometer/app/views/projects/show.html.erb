@@ -1,10 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
+<tr>
+    <td>
+      <h1><%=@project.name%></h1>
+    </td>
+    <td>
+      <h4><%= link_to 'New Task', new_task_path %></h4>
+    </td>
+ </tr>
 
+<table class='main' width='70%'>
+	<tr class='table_header'>
+		<td width='20%'>Name</td>
+	    <td width='60%'>Description</td>
+	    <td width='10%'>Effort</td>
+	</tr>
+<% @tasks.each do |task| %>
+	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+    <td width='20%'><%= link_to task.name, edit_task_path(task) %></td>
+    <td width='60%'><%= task.description %></td>
+    <td width='10%' style="text-align:center"><%= task.effort %></td>
+    <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+</table>
