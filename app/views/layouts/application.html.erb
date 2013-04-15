@@ -26,8 +26,18 @@
 			<td width='10%' rowspan='2' class='sidepanel'>
 				<!--left panel-->
 			</td>
-			<td width='10%' class="navbar">	
-			    <%= link_to 'Projects Home', projects_path %>
+			<td width='80%' class="navbar">	
+			    <%= link_to '[Projects Home]', projects_path %>
+			    <%= link_to '[New Project]', new_project_path %>
+
+			    <% if session[:current_project] != nil %>
+			   		||
+			    	<%= link_to '[New Task]', new_task_path %>
+			    	<%= link_to '[Task List]', Project.find(session[:current_project])%>
+			    	||
+			    	<%= link_to '[New Result]', projects_path %>
+			    	<%= link_to '[Result List]', projects_path %>
+			    <% end %>
 			    <hr/>
 			</td>
 			<td width='10%' rowspan='2' class='sidepanel'>
