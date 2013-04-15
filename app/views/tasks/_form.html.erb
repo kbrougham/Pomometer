@@ -21,9 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :effort %><br />
-    <%= f.select :effort, options_for_select({1 => "1", 2 => "2", 3 => "3", 5 => "5", 8 => "8"}) %>
-  </div>
+    <%= f.select :effort, options_for_select({1 => "1", 2 => "2", 3 => "3", 5 => "5", 8 => "8"}, selected: @effort_selected) %>
+  </div> 
+    <%= f.hidden_field :project_id, value: session[:current_project] %>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
