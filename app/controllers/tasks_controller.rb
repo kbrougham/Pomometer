@@ -37,6 +37,8 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     @project = Project.where(:id => @task.project_id).all
+
+    @effort_selected = @task.effort
   end
 
   # POST /tasks
