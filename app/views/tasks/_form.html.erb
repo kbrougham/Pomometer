@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :effort %><br />
-    <%= f.select :effort, options_for_select({1 => "1", 2 => "2", 3 => "3", 5 => "5", 8 => "8"}) %>
+    <%= f.select :effort, options_for_select({1 => "1", 2 => "2", 3 => "3", 5 => "5", 8 => "8"}, selected: @effort_selected) %>
   </div> 
   <div class="field">
     <%= f.label :project_id %><br />
