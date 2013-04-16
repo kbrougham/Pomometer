@@ -20,16 +20,16 @@
     <%= f.text_area :notes %>
   </div>
   <div class="field">
-    <%= f.label :started_at %><br />
-    <%= f.datetime_select :started_at %>
+    <%= f.label :started_at %>: Date -- Time<br />
+    <%= f.datetime_select :started_at, ampm: true%>
   </div>
-  <div class="field">
-    <%= f.label :duration %><br />
+  <!--<div class="field">
+    <%= f.label :duration %>: Minutes<br />
     <%= f.number_field :duration %>
-  </div>
+  </div>-->
   <div class="field">
-    <%= f.label :ended_at %><br />
-    <%= f.datetime_select :ended_at %>
+    <%= f.label :ended_at %>: Date -- Time<br />
+    <%= f.datetime_select :ended_at, ampm: true%>
   </div>
   <%= f.hidden_field :task_id, value: session[:current_task] %>
   <div class="actions">
