@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.order("name ASC")
+    session[:current_task] = nil 
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,8 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
+    @results = Result.where(task_id: params[:id]).order("goal ASC")
+    session[:current_task] = params[:id]
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +29,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @project = Project.where(:id => @task.project_id).all
+    session[:current_task] = nil 
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,10 +50,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @project = Project.where(:id => @task.project_id).all
+    session[:current_task] = @task.id
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @project, notice: 'Task was successfully created.' }
+        format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
       else
         format.html { render action: "new" }

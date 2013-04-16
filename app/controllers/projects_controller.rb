@@ -4,7 +4,9 @@ class ProjectsController < ApplicationController
   def index
     #@projects = Project.all.sort_by(&:name)
     @projects = Project.order("lower(name) ASC")
-    
+    session[:current_project] = nil 
+    session[:current_task] = nil 
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @projects }
@@ -17,6 +19,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @tasks = Task.where(:project_id => params[:id]).order("name ASC")
     session[:current_project] = @project.id
+    session[:current_task] = nil 
 
     
   end
@@ -25,6 +28,9 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = Project.new
+    session[:current_project] = nil 
+    session[:current_task] = nil 
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project }
