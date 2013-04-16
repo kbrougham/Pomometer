@@ -21,21 +21,21 @@
   <% else %>
 
 	<tr class='table_header'>
-		<td width='15%'>Goal</td>
-	    <td width='35%'>Notes</td>
-	    <td width='10%'>Started At</td>
+		<td width='10%'>Goal</td>
+	    <td width='30%'>Notes</td>
+	    <td width='15%'>Started At</td>
 	    <td width='10%'>Duration</td>
-	    <td width='10%'>Ended At</td>
+	    <td width='15%'>Ended At</td>
 	</tr>
 
 <% @results.each do |result| %>
 	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td width='15%'><%= link_to result.goal, edit_result_path(result) %></td>
-    <td width='35%'><%= result.notes %></td>
-    <td width='10%' style="text-align:center"><%= result.started_at %></td>
+    <td width='10%' style="text-align:center"><%= link_to result.goal, edit_result_path(result) %></td>
+    <td width='30%'><%= result.notes %></td>
+    <td width='15%' style="text-align:center"><%= result.started_at %></td>
     <td width='10%' style="text-align:center"><%= result.duration %></td>
-    <td width='10%' style="text-align:center"><%= result.ended_at %></td>
-    <td width='10%'><%= link_to result.goal, edit_result_path(result) %></td>
+    <td width='15%' style="text-align:center"><%= result.ended_at %></td>
+    <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
     <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
