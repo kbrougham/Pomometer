@@ -1,5 +1,5 @@
 <div class='formwrapper'>
-<h1>Editing task</h1>
+<h1>Editing task - <%= Project.find(session[:current_project]).name %></h1>
 
 <%= render 'form' %>
 

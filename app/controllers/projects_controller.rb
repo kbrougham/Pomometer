@@ -18,10 +18,7 @@ class ProjectsController < ApplicationController
     @tasks = Task.where(:project_id => params[:id]).order("name ASC")
     session[:current_project] = @project.id
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @project }
-    end
+    
   end
 
   # GET /projects/new
