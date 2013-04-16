@@ -7,10 +7,7 @@ class ProjectsController < ApplicationController
     session[:current_project] = nil 
     session[:current_task] = nil 
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+    
   end
 
   # GET /projects/1
@@ -19,9 +16,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @tasks = Task.where(:project_id => params[:id]).order("name ASC")
     session[:current_project] = @project.id
-    session[:current_task] = nil 
-
-    
+    session[:current_task] = nil  
   end
 
   # GET /projects/new
