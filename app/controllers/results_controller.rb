@@ -43,6 +43,9 @@ class ResultsController < ApplicationController
     @result = Result.new(params[:result])
     @task = Task.where(:id => @result.task_id).all
 
+    #subtraction returns seconds, so divide by 60 to get minutes
+    @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
+
     respond_to do |format|
       if @result.save
         format.html { redirect_to @task, notice: 'Result was successfully created.' }
@@ -58,10 +61,14 @@ class ResultsController < ApplicationController
   # PUT /results/1.json
   def update
     @result = Result.find(params[:id])
+    @task = Task.where(:id => @result.task_id).all
+
+    #subtraction returns seconds, so divide by 60 to get minutes
+    @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
 
     respond_to do |format|
       if @result.update_attributes(params[:result])
-        format.html { redirect_to @result, notice: 'Result was successfully updated.' }
+        format.html { redirect_to @task, notice: 'Result was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
