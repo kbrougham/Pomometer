@@ -28,8 +28,8 @@ end
     @result = Result.new(params[:result])
     @task = Task.where(:id => @result.task_id).all
 
-    #subtraction returns seconds, so divide by 60 to get minutes
-    @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
+    #the end result is the start result + duration in minutes
+    @result.ended_at = @result.started_at + (@result.duration*60)
 
     respond_to do |format|
       if @result.save
@@ -54,8 +54,8 @@ end
     respond_to do |format|
       if @result.update_attributes(params[:result])
 
-        #subtraction returns seconds, so divide by 60 to get minutes
-        @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
+        #the end result is the start result + duration in minutes
+        @result.ended_at = @result.started_at + (@result.duration*60)
         @result.save
 
         format.html { redirect_to @task, notice: 'Result was successfully updated.' }

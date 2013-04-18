@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
+
   def index
     @projects = Project.order("lower(name) ASC")
     session[:current_project] = nil 
