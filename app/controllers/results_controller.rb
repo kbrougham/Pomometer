@@ -3,33 +3,18 @@ class ResultsController < ApplicationController
   # GET /results.json
   def index
     @results = Result.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @results }
-    end
   end
 
   # GET /results/1
   # GET /results/1.json
   def show
     @result = Result.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @result }
-    end
   end
 
   # GET /results/new
   # GET /results/new.json
   def new
     @result = Result.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @result }
-    end
   end
 
   # GET /results/1/edit
@@ -61,11 +46,12 @@ class ResultsController < ApplicationController
   # PUT /results/1.json
   def update
     @result = Result.find(params[:id])
-    @task = Task.where(:id => @result.task_id).all
-
     #subtraction returns seconds, so divide by 60 to get minutes
     @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
 
+    @task = Task.where(:id => @result.task_id).all
+
+    
     respond_to do |format|
       if @result.update_attributes(params[:result])
         format.html { redirect_to @task, notice: 'Result was successfully updated.' }

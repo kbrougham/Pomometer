@@ -4,11 +4,6 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.order("name ASC")
     session[:current_task] = nil 
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tasks }
-    end
   end
 
   # GET /tasks/1
@@ -17,11 +12,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @task }
-    end
   end
 
   # GET /tasks/new
@@ -30,11 +20,6 @@ class TasksController < ApplicationController
     @task = Task.new
     @project = Project.where(:id => @task.project_id).all
     session[:current_task] = nil 
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @task }
-    end
   end
 
   # GET /tasks/1/edit
