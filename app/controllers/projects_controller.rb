@@ -2,13 +2,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    #@projects = Project.all.sort_by(&:name)
     @projects = Project.order("lower(name) ASC")
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+    session[:current_project] = nil 
+    session[:current_task] = nil 
   end
 
   # GET /projects/1
@@ -16,21 +12,16 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @tasks = Task.where(:project_id => params[:id]).order("name ASC")
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @project }
-    end
+    session[:current_project] = @project.id
+    session[:current_task] = nil  
   end
 
   # GET /projects/new
   # GET /projects/new.json
   def new
     @project = Project.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @project }
-    end
+    session[:current_project] = nil 
+    session[:current_task] = nil 
   end
 
   # GET /projects/1/edit
@@ -42,7 +33,8 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-    
+    session[:current_project] = @project.id
+
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }

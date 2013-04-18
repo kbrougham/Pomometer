@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  goal: MyString
+  notes: MyText
+  started_at: 2013-04-15 15:46:30
+  duration: 1
+  ended_at: 2013-04-15 15:46:30
+
+two:
+  goal: MyString
+  notes: MyText
+  started_at: 2013-04-15 15:46:30
+  duration: 1
+  ended_at: 2013-04-15 15:46:30

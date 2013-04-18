@@ -9,19 +9,31 @@
     </td>
  </tr>
 
+
 <table class='main' width='70%'>
+  <% if @tasks.empty? %>
+    <tr>
+      <td>
+        <h2 style="text-align:center">You don't have any tasks added yet, please add tasks above.</h2>
+      </td>
+    </tr>
+  <% else %>
+
 	<tr class='table_header'>
 		<td width='20%'>Name</td>
 	    <td width='60%'>Description</td>
 	    <td width='10%'>Effort</td>
 	</tr>
+
 <% @tasks.each do |task| %>
 	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td width='20%'><%= link_to task.name, edit_task_path(task) %></td>
-    <td width='60%'><%= task.description %></td>
+    <td width='20%'><%= link_to task.name, task %></td>
+    <td width='50%'><%= task.description %></td>
     <td width='10%' style="text-align:center"><%= task.effort %></td>
+    <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
     <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-
+<% end %>
 </table>
+

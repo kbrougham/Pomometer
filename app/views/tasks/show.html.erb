@@ -1,25 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @task.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @task.description %>
-</p>
-
-<p>
-  <b>Effort:</b>
-  <%= @task.effort %>
-</p>
-
-<p>
-  <b>Project:</b>
-  <%= @task.project_id %>
-</p>
+<tr>
+    <td>
+      <h1><%=@task.name%></h1>
+    </td>
+    <td>
+      <h4><%= link_to 'New Result', new_result_path %></h4>
+    </td>
+ </tr>
 
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<table class='main' width='70%'>
+  
+  <% if @results.empty? %>
+    <tr>
+      <td>
+        <h2 style="text-align:center">You don't have any results added yet, please add results above.</h2>
+      </td>
+    </tr>
+  <% else %>
+
+	<tr class='table_header'>
+		<td width='10%'>Goal</td>
+	    <td width='30%'>Notes</td>
+	    <td width='15%'>Started At</td>
+	    <td width='10%'>Duration</td>
+	    <td width='15%'>Ended At</td>
+	</tr>
+
+<% @results.each do |result| %>
+	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+    <td width='10%' style="text-align:center"><%= link_to result.goal, edit_result_path(result) %></td>
+    <td width='30%'><%= result.notes %></td>
+    <td width='15%' style="text-align:center"><%= result.started_at.in_time_zone('Eastern Time (US & Canada)') %></td>
+    <td width='10%' style="text-align:center"><%= result.duration %> mins</td>
+    <td width='15%' style="text-align:center"><%= result.ended_at.in_time_zone('Eastern Time (US & Canada)') %></td>
+    <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
+    <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>

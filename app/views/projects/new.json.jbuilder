@@ -1,0 +1,2 @@
+
+json.(@project, :name)
