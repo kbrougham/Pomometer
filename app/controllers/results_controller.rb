@@ -54,7 +54,6 @@ end
     respond_to do |format|
       if @result.update_attributes(params[:result])
 
-        @result.started_at.change(offset: 'est')
         #subtraction returns seconds, so divide by 60 to get minutes
         @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
         @result.save
