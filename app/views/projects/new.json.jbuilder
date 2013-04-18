@@ -1,2 +1,2 @@
 
-redirect_to @projects, notice: "Project was successfully created"
+json.(@project, :name)

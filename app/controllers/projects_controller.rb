@@ -2,12 +2,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    #@projects = Project.all.sort_by(&:name)
     @projects = Project.order("lower(name) ASC")
     session[:current_project] = nil 
     session[:current_task] = nil 
-
-    
   end
 
   # GET /projects/1
@@ -25,11 +22,6 @@ class ProjectsController < ApplicationController
     @project = Project.new
     session[:current_project] = nil 
     session[:current_task] = nil 
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @project }
-    end
   end
 
   # GET /projects/1/edit
