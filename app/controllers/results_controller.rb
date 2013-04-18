@@ -35,11 +35,7 @@ class ResultsController < ApplicationController
   # GET /results/1/edit
   def edit
     @result = Result.find(params[:id])
-
-    #temporarily hardcoded to an EST fix
-    @result.started_at = @result.started_at.change(hour: @result.started_at.hour-4)
-    @result.ended_at = @result.ended_at.change(hour: @result.ended_at.hour-4)
-  end
+end
 
   # POST /results
   # POST /results.json
@@ -49,10 +45,6 @@ class ResultsController < ApplicationController
 
     #subtraction returns seconds, so divide by 60 to get minutes
     @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
-
-    #temporarily hardcoded to an EST fix
-    @result.started_at = @result.started_at.change(hour: @result.started_at.hour+4)
-    @result.ended_at = @result.ended_at.change(hour: @result.started_at.hour+4)
 
     respond_to do |format|
       if @result.save
@@ -75,10 +67,7 @@ class ResultsController < ApplicationController
     respond_to do |format|
       if @result.update_attributes(params[:result])
 
-        #temporarily hardcoded to an EST fix
-        @result.started_at = @result.started_at.change(hour: @result.started_at.hour+4)
-        @result.ended_at = @result.ended_at.change(hour: @result.started_at.hour+4)
-
+        @result.started_at.change(offset: 'est')
         #subtraction returns seconds, so divide by 60 to get minutes
         @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
         @result.save
