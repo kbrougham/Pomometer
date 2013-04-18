@@ -1,0 +1,1 @@
+json.(@task, :name, :description, :effort)
