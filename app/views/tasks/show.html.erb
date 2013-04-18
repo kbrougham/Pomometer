@@ -2,13 +2,18 @@
 
 <tr>
     <td>
-      <h1><%=@task.name%></h1>
+      <h1 style="text-align:right"><%=@task.name%></h1>
     </td>
     <td>
       <h4><%= link_to 'New Result', new_result_path %></h4>
     </td>
  </tr>
 
+<tr>
+  <td colspan='2'>
+    <%= time_zone_select( "user", "time_zone", nil, :default => "Eastern Time (US & Canada)" )%>
+  </td>
+</tr>
 
 <table class='main' width='70%'>
   
