@@ -5,7 +5,11 @@ Pomometer::Application.routes.draw do
   resources :results
 
 
-  resources :tasks
+  resources :tasks do
+    collection do
+      post :set_time_zone
+    end
+  end
 
 
   resources :projects

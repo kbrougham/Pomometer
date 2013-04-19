@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :started_at %>: Date -- Time<br />
-    <%= f.datetime_select :started_at, ampm: true%>
+    <%= f.datetime_select :started_at, ampm: true, default: Time.now.in_time_zone %>
   </div>
   <div class="field">
     <%= f.label :duration %>: Minutes<br />
