@@ -5,7 +5,6 @@ class CreateTasks < ActiveRecord::Migration
       t.text :description
       t.integer :effort
       t.integer :project_id
-
       t.timestamps
     end
   end

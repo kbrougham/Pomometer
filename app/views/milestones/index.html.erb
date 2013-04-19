@@ -1,0 +1,45 @@
+<div class='formwrapper'>
+
+<table class='main' width='70%'>
+  <tr>
+    <td><h1 style="text-align:center">Current Milestones</h1></td>
+  </tr>
+  <tr>
+    <td><h4 style="text-align:center"><%= link_to 'New Milestone', new_milestone_path %></h4></td>
+  </tr>
+</table>
+
+
+<table class='main' width='70%'>
+
+  <% if @milestones.empty? %>
+    <tr>
+      <td>
+        <h2 style="text-align:center">You don't have any milestones added yet.</h2>
+      </td>
+    </tr>
+  <% else %>
+
+  <tr>
+    <th>Name</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @milestones.each do |milestone| %>
+  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+    <td><%= link_to milestone.name, milestone %></td>
+    <td><%= milestone.starts_at %></td>
+    <td><%= milestone.ends_at %></td>
+    <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
+    <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+</div>

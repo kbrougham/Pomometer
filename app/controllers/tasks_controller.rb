@@ -18,7 +18,8 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
-    @project = Project.where(:id => @task.project_id).all
+    @project = Project.find(session[:current_project])
+    @milestones = Milestone.all.map{ |m| [ m.name, m.id ] }
     session[:current_task] = nil 
   end
 
@@ -26,8 +27,9 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     @project = Project.where(:id => @task.project_id).all
-
+    @milestones = Milestone.all.map{ |m| [ m.name, m.id ] }
     @effort_selected = @task.effort
+    @milestone_selected = @task.milestone_id
   end
 
   # POST /tasks
