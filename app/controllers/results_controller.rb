@@ -1,4 +1,6 @@
 class ResultsController < ApplicationController
+
+  Time.zone = "Eastern Time (US & Canada)"
   # GET /results
   # GET /results.json
   def index
@@ -15,11 +17,13 @@ class ResultsController < ApplicationController
   # GET /results/new.json
   def new
     @result = Result.new
+    Time.zone=session[:selected_time_zone]
   end
 
   # GET /results/1/edit
   def edit
     @result = Result.find(params[:id])
+    Time.zone=session[:selected_time_zone]
 end
 
   # POST /results
@@ -28,17 +32,21 @@ end
     @result = Result.new(params[:result])
     @task = Task.where(:id => @result.task_id).all
 
-    #the end result is the start result + duration in minutes
-    @result.ended_at = @result.started_at + (@result.duration*60)
-
+    if @result.duration.nil?
+      @result.errors.add(:duration, " can't be blank")
+    else
+      #the end result is the start result + duration in minutes
+      @result.ended_at = @result.started_at + (@result.duration*60)
+    end
+    
     respond_to do |format|
       if @result.save
         format.html { redirect_to @task, notice: 'Result was successfully created.' }
-        format.json { render json: @result, status: :created, location: @result }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @result.errors, status: :unprocessable_entity }
-      end
+        format.json { render json: @result, status: :created, location: @result }    
+        else
+          format.html { render action: "new" }
+          format.json { render json: @result.errors, status: :unprocessable_entity }      
+        end
     end
   end
 

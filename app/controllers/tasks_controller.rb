@@ -9,6 +9,14 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
+
+    if session[:selected_time_zone] == nil
+      session[:selected_time_zone] = @DEFAULT_TIME_ZONE
+    end
+
+    Time.zone = session[:selected_time_zone]
+
     @task = Task.find(params[:id])
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
