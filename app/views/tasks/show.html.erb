@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
+<div class= "task_id" data-id= <%= params[:id] %> style= "display: none;">
+</div>
 
 <tr>
     <td>
@@ -11,8 +13,8 @@
 
 <tr>
   <td colspan='2'>
-    <%= time_zone_select( "user", "time_zone", nil, default: Time.zone )%>   
-  </td>
+    <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
+  </td>  
 </tr>
 
 <table class='main' width='70%'>
@@ -40,7 +42,7 @@
         <td width='15%' style="text-align:center" id=<%="started_at_"+result.id.to_s%>><%=result.started_at.in_time_zone %></td>
         <!--.in_time_zone("Eastern Time (US & Canada)")-->
         <td width='10%' style="text-align:center"><%= result.duration %> mins</td>
-        <td width='15%' style="text-align:center" id=<%="ended_at_"+result.id.to_s%>><%= result.ended_at.in_time_zone%></td>
+        <td width='15%' style="text-align:center" id=<%="ended_at_"+result.id.to_s%>><%= result.ended_at.in_time_zone %></td>
         <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
         <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -50,9 +52,18 @@
 
 <script>
   $('#user_time_zone').bind('change', function() {
-    var selected_time_zone = $('#user_time_zone').val()
-    console.log(selected_time_zone)
-     
-    
-  })
+      var selected_time_zone_value = $('#user_time_zone').val()
+      var task_id = $(".task_id").attr("data-id");
+
+      console.log(task_id)
+
+      $.post("/tasks/set_time_zone", {selected_time_zone : selected_time_zone_value, id : task_id}, function(data)
+      {
+        location.reload();
+      });
+    });
+
+      
+    //have time zone, need to update session variable
+    //now refresh    
 </script>

@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   def show
     @DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
 
-    if session[:selected_time_zone] == nil
+    if session[:selected_time_zone].nil?
       session[:selected_time_zone] = @DEFAULT_TIME_ZONE
     end
 
@@ -83,6 +83,17 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @project }
       format.json { head :no_content }
+    end
+  end
+
+  def set_time_zone
+    session[:selected_time_zone] = params[:selected_time_zone]
+    task = Task.find(params[:id])
+
+    respond_to do |format|
+      if request.xhr?
+        format.json { head :no_content }
+      end
     end
   end
 end
