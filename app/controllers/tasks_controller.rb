@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @project = Project.find(session[:current_project])
-    @milestones = Milestone.all.map{ |m| [ m.name, m.id ] }
+    @milestones = Milestone.where(project_id: session[:current_project]).map{ |m| [ m.name, m.id ] }
     session[:current_task] = nil 
   end
 
