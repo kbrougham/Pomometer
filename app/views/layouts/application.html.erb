@@ -3,6 +3,7 @@
 <head>
   <title>Pomometer</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -28,7 +29,7 @@
 			</td>
 			<td width='80%' class="navbar">	
 			    <%= link_to '[Projects Home]', projects_path %>
-			    <%= link_to '[New Project]', new_project_path %>
+			    <%= link_to '[New Project]', new_project_path %>		    
 
 			    <% if session[:current_project] != nil %>
 			   		||
@@ -39,7 +40,11 @@
 			    	<%= link_to '[New Result]', new_result_path %>
 			    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 			    	<% end %>
+			    	||
+			    	<%= link_to '[Milestones]', milestones_path %>
 			    <% end %>
+
+			    
 			    <hr/>
 			</td>
 			<td width='10%' rowspan='2' class='sidepanel'>

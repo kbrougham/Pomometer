@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
+<div class= "task_id" data-id= <%= params[:id] %> style= "display: none;">
+</div>
 
 <tr>
     <td>
@@ -11,8 +13,8 @@
 
 <tr>
   <td colspan='2'>
-    <%= time_zone_select( "user", "time_zone", nil, :default => "Eastern Time (US & Canada)" )%>
-  </td>
+    <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
+  </td>  
 </tr>
 
 <table class='main' width='70%'>
@@ -25,24 +27,40 @@
     </tr>
   <% else %>
 
-	<tr class='table_header'>
-		<td width='10%'>Goal</td>
-	    <td width='30%'>Notes</td>
-	    <td width='15%'>Started At</td>
-	    <td width='10%'>Duration</td>
-	    <td width='15%'>Ended At</td>
-	</tr>
+  	<tr class='table_header'>
+  		<td width='10%'>Goal</td>
+  	    <td width='30%'>Notes</td>
+  	    <td width='15%'>Started At</td>
+  	    <td width='10%'>Duration</td>
+  	    <td width='15%'>Ended At</td>
+  	</tr>
 
-<% @results.each do |result| %>
-	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td width='10%' style="text-align:center"><%= link_to result.goal, edit_result_path(result) %></td>
-    <td width='30%'><%= result.notes %></td>
-    <td width='15%' style="text-align:center"><%= result.started_at.in_time_zone('Eastern Time (US & Canada)') %></td>
-    <td width='10%' style="text-align:center"><%= result.duration %> mins</td>
-    <td width='15%' style="text-align:center"><%= result.ended_at.in_time_zone('Eastern Time (US & Canada)') %></td>
-    <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
-    <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-<% end %>
+    <% @results.each do |result| %>
+    	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+        <td width='10%' style="text-align:center"><%= link_to result.goal, edit_result_path(result) %></td>
+        <td width='30%'><%= result.notes %></td>
+        <td width='15%' style="text-align:center" id=<%="started_at_"+result.id.to_s%>><%=result.started_at.in_time_zone %></td>
+        <!--.in_time_zone("Eastern Time (US & Canada)")-->
+        <td width='10%' style="text-align:center"><%= result.duration %> mins</td>
+        <td width='15%' style="text-align:center" id=<%="ended_at_"+result.id.to_s%>><%= result.ended_at.in_time_zone %></td>
+        <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
+        <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  <% end %>
 </table>
+
+<script>
+  //on dropdown changed value, we will get it's new value, and update our session variable holding time zone to that new value, and refresh the page.
+  $('#user_time_zone').bind('change', function() {
+      var selected_time_zone_value = $('#user_time_zone').val()
+      var task_id = $(".task_id").attr("data-id");
+
+      console.log(task_id)
+
+      $.post("/tasks/set_time_zone", {selected_time_zone : selected_time_zone_value, id : task_id}, function(data)
+      {
+        location.reload();
+      });
+    });
+</script>

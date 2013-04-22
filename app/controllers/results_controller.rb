@@ -15,29 +15,44 @@ class ResultsController < ApplicationController
   # GET /results/new.json
   def new
     @result = Result.new
+
+    Time.zone= session[:selected_time_zone]
+    puts session[:selected_time_zone]
+    puts Time.zone
   end
 
   # GET /results/1/edit
   def edit
     @result = Result.find(params[:id])
+    Time.zone=session[:selected_time_zone]
 end
 
   # POST /results
   # POST /results.json
   def create
+    Time.zone=session[:selected_time_zone]
     @result = Result.new(params[:result])
     @task = Task.where(:id => @result.task_id).all
 
-    #subtraction returns seconds, so divide by 60 to get minutes
-    @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
+    if @result.duration.nil?
+      @result.errors.add(:duration, " can't be blank")
+    else
+      #the end result is the start result + duration in minutes
+      @result.ended_at = @result.started_at + (@result.duration*60)
+
+      #convert to UTC for storing
+      @result.started_at = @result.started_at.in_time_zone("UTC")
+      @result.ended_at = @result.ended_at.in_time_zone("UTC")
+      puts Time.zone
+    end
 
     respond_to do |format|
       if @result.save
         format.html { redirect_to @task, notice: 'Result was successfully created.' }
-        format.json { render json: @result, status: :created, location: @result }
+        format.json { render json: @result, status: :created, location: @result }    
       else
         format.html { render action: "new" }
-        format.json { render json: @result.errors, status: :unprocessable_entity }
+        format.json { render json: @result.errors, status: :unprocessable_entity }      
       end
     end
   end
@@ -45,6 +60,7 @@ end
   # PUT /results/1
   # PUT /results/1.json
   def update
+    Time.zone=session[:selected_time_zone]
     @result = Result.find(params[:id])
     #subtraction returns seconds, so divide by 60 to get minutes
     @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
@@ -54,8 +70,8 @@ end
     respond_to do |format|
       if @result.update_attributes(params[:result])
 
-        #subtraction returns seconds, so divide by 60 to get minutes
-        @result.duration = ((@result.ended_at - @result.started_at) / 60).to_i
+        #the end result is the start result + duration in minutes
+        @result.ended_at = @result.started_at + (@result.duration*60)
         @result.save
 
         format.html { redirect_to @task, notice: 'Result was successfully updated.' }

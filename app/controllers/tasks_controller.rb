@@ -9,6 +9,15 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    #figure out how to module this?
+    @DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
+
+    if session[:selected_time_zone].nil?
+      session[:selected_time_zone] = @DEFAULT_TIME_ZONE
+    end
+
+    Time.zone = session[:selected_time_zone]
+
     @task = Task.find(params[:id])
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
@@ -18,7 +27,8 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
-    @project = Project.where(:id => @task.project_id).all
+    @project = Project.find(session[:current_project])
+    @milestones = Milestone.where(project_id: session[:current_project]).map{ |m| [ m.name, m.id ] }
     session[:current_task] = nil 
   end
 
@@ -26,8 +36,9 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     @project = Project.where(:id => @task.project_id).all
-
+    @milestones = Milestone.all.map{ |m| [ m.name, m.id ] }
     @effort_selected = @task.effort
+    @milestone_selected = @task.milestone_id
   end
 
   # POST /tasks
@@ -75,6 +86,17 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @project }
       format.json { head :no_content }
+    end
+  end
+
+  def set_time_zone
+    session[:selected_time_zone] = params[:selected_time_zone]
+    task = Task.find(params[:id])
+
+    respond_to do |format|
+      if request.xhr?
+        format.json { head :no_content }
+      end
     end
   end
 end
