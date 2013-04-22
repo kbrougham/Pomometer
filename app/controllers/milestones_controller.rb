@@ -11,7 +11,7 @@ class MilestonesController < ApplicationController
 
     Time.zone = session[:selected_time_zone]
 
-    @milestones = Milestone.where(project_id: session[:current_project].order("name ASC")
+    @milestones = Milestone.where(project_id: session[:current_project]).order("name ASC")
 
     respond_to do |format|
       format.html # index.html.erb
