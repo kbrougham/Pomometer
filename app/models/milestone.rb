@@ -1,5 +1,7 @@
 class Milestone < ActiveRecord::Base
-  attr_accessible :ends_at, :name, :starts_at
+  attr_accessible :ends_at, :name, :starts_at, :project_id
+
+  belongs_to :project
   has_many :tasks
   validates :name, presence: true
   validate :end_date_after_start_date

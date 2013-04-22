@@ -5,6 +5,7 @@ class CreateMilestones < ActiveRecord::Migration
       t.datetime :starts_at
       t.datetime :ends_at
 
+      t.references :project
       t.timestamps
     end
   end

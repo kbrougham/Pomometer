@@ -23,6 +23,7 @@
     <%= f.label :ends_at %><br />
     <%= f.datetime_select :ends_at %>
   </div>
+  <%= f.hidden_field :project_id, value: session[:current_project] %>
   <div class="actions">
     <%= f.submit %>
   </div>
