@@ -9,6 +9,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    #figure out how to module this?
     @DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
 
     if session[:selected_time_zone].nil?

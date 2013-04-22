@@ -29,8 +29,7 @@
 			</td>
 			<td width='80%' class="navbar">	
 			    <%= link_to '[Projects Home]', projects_path %>
-			    <%= link_to '[New Project]', new_project_path %>
-			    <%= link_to '[Milestones]', milestones_path %>
+			    <%= link_to '[New Project]', new_project_path %>		    
 
 			    <% if session[:current_project] != nil %>
 			   		||
@@ -41,6 +40,8 @@
 			    	<%= link_to '[New Result]', new_result_path %>
 			    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 			    	<% end %>
+			    	||
+			    	<%= link_to '[Milestones]', milestones_path %>
 			    <% end %>
 
 			    

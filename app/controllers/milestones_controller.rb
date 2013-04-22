@@ -2,6 +2,15 @@ class MilestonesController < ApplicationController
   # GET /milestones
   # GET /milestones.json
   def index
+    #figure out how to module this?
+    @DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
+
+    if session[:selected_time_zone].nil?
+      session[:selected_time_zone] = @DEFAULT_TIME_ZONE
+    end
+
+    Time.zone = session[:selected_time_zone]
+
     @milestones = Milestone.order("name ASC")
 
     respond_to do |format|
@@ -13,6 +22,8 @@ class MilestonesController < ApplicationController
   # GET /milestones/1
   # GET /milestones/1.json
   def show
+    Time.zone = session[:selected_time_zone]
+
     @milestone = Milestone.find(params[:id])
     @tasks = Task.where(milestone_id: params[:id]).order("name ASC")
 
@@ -25,6 +36,8 @@ class MilestonesController < ApplicationController
   # GET /milestones/new
   # GET /milestones/new.json
   def new
+    Time.zone = session[:selected_time_zone]
+
     @milestone = Milestone.new
 
     respond_to do |format|
@@ -35,12 +48,16 @@ class MilestonesController < ApplicationController
 
   # GET /milestones/1/edit
   def edit
+    Time.zone = session[:selected_time_zone]
+
     @milestone = Milestone.find(params[:id])
   end
 
   # POST /milestones
   # POST /milestones.json
   def create
+    Time.zone = session[:selected_time_zone]
+
     @milestone = Milestone.new(params[:milestone])
 
     respond_to do |format|
@@ -57,6 +74,8 @@ class MilestonesController < ApplicationController
   # PUT /milestones/1
   # PUT /milestones/1.json
   def update
+    Time.zone = session[:selected_time_zone]
+
     @milestone = Milestone.find(params[:id])
 
     respond_to do |format|
@@ -79,6 +98,16 @@ class MilestonesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to milestones_url }
       format.json { head :no_content }
+    end
+  end
+
+  def set_time_zone
+    session[:selected_time_zone] = params[:selected_time_zone]
+
+    respond_to do |format|
+      if request.xhr?
+        format.json { head :no_content }
+      end
     end
   end
 end

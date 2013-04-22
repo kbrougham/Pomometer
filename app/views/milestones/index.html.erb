@@ -1,14 +1,12 @@
-<div class='formwrapper'>
-
-<table class='main' width='70%'>
-  <tr>
-    <td><h1 style="text-align:center">Current Milestones</h1></td>
-  </tr>
-  <tr>
-    <td><h4 style="text-align:center"><%= link_to 'New Milestone', new_milestone_path %></h4></td>
-  </tr>
-</table>
-
+<tr>
+  <td><h1>Current Milestones</h1></td>
+  <td><h4 style="text-align:left"><%= link_to 'New Milestone', new_milestone_path %></h4></td>
+</tr>
+  <td colspan='2' style="text-align:center">
+  <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
+</td> 
+<tr>
+</tr>
 
 <table class='main' width='70%'>
 
@@ -32,8 +30,8 @@
 <% @milestones.each do |milestone| %>
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= link_to milestone.name, milestone %></td>
-    <td><%= milestone.starts_at %></td>
-    <td><%= milestone.ends_at %></td>
+    <td><%= milestone.starts_at.in_time_zone %></td>
+    <td><%= milestone.ends_at.in_time_zone %></td>
     <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
     <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -41,5 +39,14 @@
 <% end %>
 </table>
 
-<br />
-</div>
+<script>
+  //on dropdown changed value, we will get it's new value, and update our session variable holding time zone to that new value, and refresh the page.
+  $('#user_time_zone').bind('change', function() {
+      var selected_time_zone_value = $('#user_time_zone').val()
+
+      $.post("/milestones/set_time_zone", {selected_time_zone : selected_time_zone_value}, function(data)
+      {
+        location.reload();
+      });
+    });
+</script>

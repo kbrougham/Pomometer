@@ -51,6 +51,7 @@
 </table>
 
 <script>
+  //on dropdown changed value, we will get it's new value, and update our session variable holding time zone to that new value, and refresh the page.
   $('#user_time_zone').bind('change', function() {
       var selected_time_zone_value = $('#user_time_zone').val()
       var task_id = $(".task_id").attr("data-id");
@@ -62,8 +63,4 @@
         location.reload();
       });
     });
-
-      
-    //have time zone, need to update session variable
-    //now refresh    
 </script>
