@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :description, :effort, :name, :project_id, :milestone_id
+  attr_accessible :completed, :description, :effort, :name, :project_id, :milestone_id
   belongs_to :project
   belongs_to :milestone
   has_many :results

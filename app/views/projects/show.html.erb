@@ -24,12 +24,14 @@
         <td colspan="6"><h4>MILESTONE: <%= name %></h4><hr/></td>
       </tr>
         <tr class='table_header'>
-        <td width='20%'>Name</td>
-        <td width='60%'>Description</td>
-        <td width='10%'>Effort</td>
+          <td width='10%'>Complete</td>
+          <td width='20%'>Name</td>
+          <td width='60%'>Description</td>
+          <td width='10%'>Effort</td>
       </tr>
       <% tasks.each do |task| %>
     	  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+          <td width='10%'><%= task.completed ? "Yes" : "No" %></td>
           <td width='20%'><%= link_to task.name, task %></td>
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>
@@ -43,12 +45,14 @@
         <td colspan="6"><h4>TASKS WITH NO MILESTONE</h4><hr/></td>
       </tr>
         <tr class='table_header'>
-        <td width='20%'>Name</td>
-        <td width='60%'>Description</td>
-        <td width='10%'>Effort</td>
-      </tr>
+          <td width='10%'>Complete</td>
+          <td width='20%'>Name</td>
+          <td width='60%'>Description</td>
+          <td width='10%'>Effort</td>
+        </tr>
       <% @tasks_without_milestone.each do |task| %>
         <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+          <td width='10%'><%= task.completed ? "Yes" : "No" %></td>
           <td width='20%'><%= link_to task.name, task %></td>
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>

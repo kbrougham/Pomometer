@@ -1,0 +1,37 @@
+  <tr>
+    <td>
+      <h1>Reports</h1>
+    </td>
+  </tr>
+<% if @projects.empty? %>
+  <tr class="alternating_even">
+    <td colspan='3'><em>There are no current projects</em></td>
+  </tr>
+<% else %>
+  <tr style="text-align:center">
+  	<td>
+  	  <%= select_tag "project_dropdown", options_from_collection_for_select(@projects, "id", "name"), :prompt => "All Projects" %>
+  	</td>
+  </tr>
+  <tr style="text-align:center">
+  	<td>
+  		<%= button_to "View Report", "javascript:buttonClicked()" %>
+  	</td>
+  </tr>
+<% end %>
+
+<script>
+	function buttonClicked() {
+		var project_id = null;
+		project_id = $("#project_dropdown").val();
+		
+		if (project_id == ""){
+		    console.log("got here")
+			$.post("/reports/all")
+		}
+		else {
+			console.log("got to specific project");
+			$.post("/reports/" + project_id)
+		}
+	}
+</script>
