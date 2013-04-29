@@ -3,15 +3,19 @@
       <h1>Project List</h1>
     </td>
     <td colspan='2'>
-      <h4><%= link_to 'New Project', new_project_path %></h4>
+      <% if session[:admin_id] != nil %>
+        <h4><%= link_to 'New Project', new_project_path %></h4>
+      <% end %>  
     </td>
   </tr>
 
 <% @projects.each do |project| %>
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= link_to project.name, project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if session[:admin_id] != nil %>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 <% if @projects.empty? %>

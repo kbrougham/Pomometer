@@ -23,8 +23,10 @@
     <th>Password</th>
     <th>Role</th>
     <th></th>
-    <th></th>
-    <th></th>
+    <% if session[:admin_id] != nil %>
+      <th></th>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @admins.each do |admin| %>
@@ -32,8 +34,10 @@
     <td><%= link_to admin.username, admin %></td>
     <td><%= admin.password %></td>
     <td><%= admin.role %></td>
-    <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-    <td><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if session[:admin_id] != nil %>
+      <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+      <td><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 <% end %>

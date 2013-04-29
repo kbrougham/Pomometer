@@ -41,11 +41,11 @@
 			    	<% end %>
 			    	<%= link_to '[Task List]', Project.find(session[:current_project])%>
 			    	<% if session[:current_task] != nil %>
-			    	||
-			    	<% if session[:admin_id] != nil %>
-			    		<%= link_to '[New Result]', new_result_path %>
-			    	<% end %>
-			    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
+				    	||
+				    	<% if session[:admin_id] != nil %>
+				    		<%= link_to '[New Result]', new_result_path %>
+				    	<% end %>
+				    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 			    	<% end %>
 			    	||
 			    	<%= link_to '[Milestones]', milestones_path %>

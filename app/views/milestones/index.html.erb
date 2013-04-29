@@ -1,6 +1,10 @@
 <tr>
   <td><h1>Current Milestones</h1></td>
-  <td><h4 style="text-align:left"><%= link_to 'New Milestone', new_milestone_path %></h4></td>
+  <td>
+    <% if session[:admin_id] != nil %>
+      <h4 style="text-align:left"><%= link_to 'New Milestone', new_milestone_path %></h4>
+    <% end %>
+  </td>
 </tr>
   <td colspan='2' style="text-align:center">
   <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
@@ -23,8 +27,10 @@
     <th>Starts at</th>
     <th>Ends at</th>
     <th></th>
-    <th></th>
-    <th></th>
+    <% if session[:admin_id] != nil %>
+      <th></th>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @milestones.each do |milestone| %>
@@ -32,8 +38,10 @@
     <td><%= link_to milestone.name, milestone %></td>
     <td><%= milestone.starts_at.in_time_zone %></td>
     <td><%= milestone.ends_at.in_time_zone %></td>
-    <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
-    <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if session[:admin_id] != nil %>
+      <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
+      <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 <% end %>
