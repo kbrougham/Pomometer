@@ -1,6 +1,10 @@
 <tr>
   <td><h1>Current Admins</h1></td>
-  <td><h4 style="text-align:left"><%= link_to 'New Admin', new_admin_path %></h4></td>
+  <td>
+    <% if session[:admin_id] != nil %>
+      <h4 style="text-align:left"><%= link_to 'New Admin', new_admin_path %></h4>
+    <% end %>
+  </td>
 </tr>
   
 
