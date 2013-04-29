@@ -35,7 +35,8 @@ class ReportsController < ApplicationController
 	else
 		@minutes_worked_range_46_60 += 1
   	end
-
+  end
+  
   	@hours_worked = @minutes_worked / 60
   	@minutes_worked = @minutes_worked % 60
   end
