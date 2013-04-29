@@ -1,15 +1,16 @@
 Pomometer::Application.routes.draw do
+
   get "reports/index"
 
   get "reports/show"
 
   get "reports/all"
 
+  resources :admins
+
   resources :milestones
 
-
   resources :results
-
 
   resources :tasks do
     collection do

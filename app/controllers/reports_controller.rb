@@ -26,15 +26,14 @@ class ReportsController < ApplicationController
   	@results.each do |result|
   		@minutes_worked = @minutes_worked + result.duration
 
-  		if (result.duration <= 15)
-  			@minutes_worked_range_1_15 += 1
-  		elsif (result.duration <= 30)
-  			@minutes_worked_range_16_30 += 1
-  		elsif (result.duration <= 45)
-  			@minutes_worked_range_31_45 += 1
-  		else
-  			@minutes_worked_range_46_60 += 1
-  		end
+	if (result.duration <= 15)
+		@minutes_worked_range_1_15 += 1
+	elsif (result.duration <= 30)
+		@minutes_worked_range_16_30 += 1
+	elsif (result.duration <= 45)
+		@minutes_worked_range_31_45 += 1
+	else
+		@minutes_worked_range_46_60 += 1
   	end
 
   	@hours_worked = @minutes_worked / 60
