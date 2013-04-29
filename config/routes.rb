@@ -1,4 +1,7 @@
 Pomometer::Application.routes.draw do
+  resources :admins
+
+
   resources :milestones
 
 
