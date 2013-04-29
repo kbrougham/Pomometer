@@ -5,6 +5,7 @@ class Result < ActiveRecord::Base
   validates :goal, :notes, :duration, :presence => true
   before_save :end_date_after_start_date
 
+# max duration 60 minutes
   def end_date_after_start_date
   	if started_at >= ended_at
 		errors.add(:ended_at, " must be after Started At.")

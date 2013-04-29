@@ -39,6 +39,7 @@ class TasksController < ApplicationController
     @milestones = Milestone.all.map{ |m| [ m.name, m.id ] }
     @effort_selected = @task.effort
     @milestone_selected = @task.milestone_id
+    @completed_selected = @task.completed
   end
 
   # POST /tasks

@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :completed %><br />
+    <%= f.select :completed, options_for_select({:No => false, :Yes => true}, selected: @effort_selected) %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
