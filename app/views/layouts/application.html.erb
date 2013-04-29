@@ -29,21 +29,35 @@
 			</td>
 			<td width='80%' class="navbar">	
 			    <%= link_to '[Projects Home]', projects_path %>
-			    <%= link_to '[New Project]', new_project_path %>		    
+
+			    <% if session[:admin_id] != nil %>
+			    	<%= link_to '[New Project]', new_project_path %>	
+			    <% end %>	    
 
 			    <% if session[:current_project] != nil %>
 			   		||
-			    	<%= link_to '[New Task]', new_task_path %>
+			   		<% if session[:admin_id] != nil %>
+			    		<%= link_to '[New Task]', new_task_path %>
+			    	<% end %>
 			    	<%= link_to '[Task List]', Project.find(session[:current_project])%>
 			    	<% if session[:current_task] != nil %>
 			    	||
-			    	<%= link_to '[New Result]', new_result_path %>
+			    	<% if session[:admin_id] != nil %>
+			    		<%= link_to '[New Result]', new_result_path %>
+			    	<% end %>
 			    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 			    	<% end %>
 			    	||
 			    	<%= link_to '[Milestones]', milestones_path %>
 			    <% end %>
 
+			    <% if session[:admin_id].nil? %>
+			    	||
+					<%= link_to '[LOGIN]', new_session_path %>
+				<% else %>
+					||
+					<%= link_to '[LOGOUT]', session_path(session), method: :delete %>
+				<% end %>
 			    
 			    <hr/>
 			</td>

@@ -1,6 +1,19 @@
-<h1>Listing admins</h1>
+<tr>
+  <td><h1>Current Admins</h1></td>
+  <td><h4 style="text-align:left"><%= link_to 'New Admin', new_admin_path %></h4></td>
+</tr>
+  
 
-<table>
+<table class='main' width='70%'>
+
+  <% if @admins.empty? %>
+    <tr>
+      <td>
+        <h2 style="text-align:center">You don't have any admins added yet.</h2>
+      </td>
+    </tr>
+  <% else %>
+
   <tr>
     <th>Username</th>
     <th>Password</th>
@@ -11,17 +24,14 @@
   </tr>
 
 <% @admins.each do |admin| %>
-  <tr>
-    <td><%= admin.username %></td>
+  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+    <td><%= link_to admin.username, admin %></td>
     <td><%= admin.password %></td>
     <td><%= admin.role %></td>
-    <td><%= link_to 'Show', admin %></td>
     <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-    <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
+<% end %>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Admin', new_admin_path %>
