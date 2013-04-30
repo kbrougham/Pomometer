@@ -1,5 +1,9 @@
-<!-- <table class='main' width='70%'>-->
-	<tr class='table_header'>
+<tr>
+    <td colspan='2' style="text-align:center">
+      <h1>All Projects</h1>
+    </td>
+ </tr>
+<tr class='table_header'>
 		<td>
 			Start date:  
 		</td>
@@ -15,7 +19,6 @@
 			<%= select_date(@end_date, :prefix => 'ended') %>
 		</td>
 	</tr>
-
 	<tr>
 		<td></td>
 		<td>
@@ -23,23 +26,59 @@
 		</td>
 	</tr>
 
-	<tr>
-		<td class='table_header'># of Pomodoro</td>
-		<td><%= @pomodoro_completed %></td>
-	</tr>
-	<tr>
-		<td class='table_header'>Minutes worked</td>
-		<td><%= @hours_worked %>h <%= @minutes_worked %>m</td>
-	</tr>
-	<tr>
-		<td>
-			<div id="chart_div" style="margin: 0 auto"/>
-		</td>
-		<td>
-			<div id="chart_div2" style="margin: 0 auto"/>
-		</td>
-	</tr>
-<!-- </table>-->
+<table class='main' width='70%'>
+	<% if @results.empty? %>
+		<tr>
+			<td>
+				<h2 style="text-align:center">No results have met this date filter, please broaden date range.</h2>
+			</td>
+		</tr>
+	<% else %>
+		<tr class='table_header'>
+			<td>
+				Goal
+			</td>
+			<td>
+				Notes
+			</td>
+			<td>
+				Started At
+			</td>
+			<td>
+				Ended At
+			</td>
+			<td>
+				Task Name
+			</td>
+			<td>
+				Project Name
+			</td>
+		</tr>
+		<% @results.each do |result| %>
+			<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+				<td>
+					<%= result.goal %>
+				</td>
+				<td>
+					<%= result.notes %>
+				</td>
+				<td>
+					<%= result.started_at %>
+				</td>
+				<td>
+					<%= result.ended_at %>
+				</td>
+				<td>
+					<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+				</td>
+				<td>
+					<%= link_to Project.find(Task.find(result.task_id).project_id).name, Project.find(Task.find(result.task_id).project_id) %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>
+
 
 <script>	
 	function buttonClicked(){
@@ -51,81 +90,18 @@
 		var end_date_month = $('#ended_month').val();
 		var end_date_day = $('#ended_day').val();
 
-		$.post("/reports/all", {start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
+		console.log (<%=params[:id]%>)
+		console.log (start_date_year)
+		console.log (start_date_month)
+		console.log (start_date_day)
+		console.log (end_date_year)
+		console.log (end_date_month)
+		console.log (end_date_day)
+		console.log ("!")
+
+		$.post("/reports/<%= params[:id] %>", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
 		{			
 			//location.reload();
 		});
 	}
 </script>
-
-<!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Range');
-        data.addColumn('number', 'Pomodoro');
-        data.addRows([
-          ['1-15min', <%= @minutes_worked_range_1_15 %>],
-          ['16-30min', <%= @minutes_worked_range_16_30 %>],
-          ['31-45min', <%= @minutes_worked_range_31_45 %>],
-          ['46-60min', <%= @minutes_worked_range_46_60 %>]
-        ]);
-
-        // Set chart options
-        var options = {'title':'Pomodoro length ranges - Pie',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-
-    <script type="text/javascript">
-
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Range');
-        data.addColumn('number', 'Pomodoro');
-        data.addRows([
-          ['1-15min', <%= @minutes_worked_range_1_15 %>],
-          ['16-30min', <%= @minutes_worked_range_16_30 %>],
-          ['31-45min', <%= @minutes_worked_range_31_45 %>],
-          ['46-60min', <%= @minutes_worked_range_46_60 %>]
-        ]);
-
-        // Set chart options
-        var options = {'title':'Pomodoro length ranges - Bar',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-      }
-    </script>

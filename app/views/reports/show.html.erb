@@ -1,8 +1,30 @@
 <tr>
-    <td>
+    <td colspan='2' style="text-align:center">
       <h1><%=@project.name%></h1>
     </td>
  </tr>
+<tr class='table_header'>
+		<td>
+			Start date:  
+		</td>
+		<td>
+			<%= select_date(@start_date, :prefix => 'started') %>
+		</td>
+	</tr>
+	<tr class='table_header'>
+		<td>
+			End Date:
+		</td>
+		<td>
+			<%= select_date(@end_date, :prefix => 'ended') %>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
+		</td>
+	</tr>
 
 <table class='main' width='70%'>
 	<% if @results.empty? %>
@@ -50,3 +72,30 @@
 		<% end %>
 	<% end %>
 </table>
+
+
+<script>	
+	function buttonClicked(){
+		var start_date_year = $('#started_year').val();
+		var start_date_month = $('#started_month').val();
+		var start_date_day = $('#started_day').val();
+
+		var end_date_year = $('#ended_year').val();
+		var end_date_month = $('#ended_month').val();
+		var end_date_day = $('#ended_day').val();
+
+		console.log (<%=params[:id]%>)
+		console.log (start_date_year)
+		console.log (start_date_month)
+		console.log (start_date_day)
+		console.log (end_date_year)
+		console.log (end_date_month)
+		console.log (end_date_day)
+		console.log ("!")
+
+		$.post("/reports/<%= params[:id] %>", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
+		{			
+			//location.reload();
+		});
+	}
+</script>
