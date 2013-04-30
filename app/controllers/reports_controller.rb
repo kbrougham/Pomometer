@@ -6,18 +6,29 @@ class ReportsController < ApplicationController
 
     # /reports/1
   def show
+  	if params[:start_date_year].nil?
+  		@start_date = Date.today - 1.month
+  		@end_date = Date.today
+  	else
+  		@start_date = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
+  		@end_date = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)
+  	end
+
   	@project = Project.find(params[:id])
-  end
+  	@tasks = Task.where(project_id: @project.id)
+  	@results = nil
+ 	
+  	@tasks.each do |task|
+  		if @results.nil?
+  			@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
+  		else
+  			@results << Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
+  		end
+  	end
+end
 
     # /reports/all
   def all
-  	puts params[:start_date_year]
-  	puts params[:start_date_month]
-  	puts params[:start_date_day]
-
-  	puts params[:end_date_year]
-  	puts params[:end_date_month]
-  	puts params[:end_date_day]
 
   	if params[:start_date_year].nil?
   		@start_date = Date.today - 1.month
@@ -28,7 +39,7 @@ class ReportsController < ApplicationController
   	end
   	
 
-  	@results = Result.all
+  	@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
   	@earliest_result = DateTime.now
 	
   	@pomodoro_completed = @results.count

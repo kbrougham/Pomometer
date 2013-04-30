@@ -1,2 +1,52 @@
-<h1>Reports#show</h1>
-<p>Find me in app/views/reports/show.html.erb</p>
+<tr>
+    <td>
+      <h1><%=@project.name%></h1>
+    </td>
+ </tr>
+
+<table class='main' width='70%'>
+	<% if @results.empty? %>
+		<tr>
+			<td>
+				<h2 style="text-align:center">No results have met this date filter, please broaden date range.</h2>
+			</td>
+		</tr>
+	<% else %>
+		<tr class='table_header'>
+			<td>
+				Goal
+			</td>
+			<td>
+				Notes
+			</td>
+			<td>
+				Started At
+			</td>
+			<td>
+				Ended At
+			</td>
+			<td>
+				Task Name
+			</td>
+		</tr>
+		<% @results.each do |result| %>
+			<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+				<td>
+					<%= result.goal %>
+				</td>
+				<td>
+					<%= result.notes %>
+				</td>
+				<td>
+					<%= result.started_at %>
+				</td>
+				<td>
+					<%= result.ended_at %>
+				</td>
+				<td>
+					<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

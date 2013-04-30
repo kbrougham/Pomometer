@@ -51,22 +51,12 @@
 		var end_date_month = $('#ended_month').val();
 		var end_date_day = $('#ended_day').val();
 
-		console.log(start_date_year + "-" + start_date_month + "-" + start_date_day);
-		console.log(end_date_year + "-" + end_date_month + "-" + end_date_day);
-		console.log("~");
-
 		$.post("/reports/all", {start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
 		{			
 			//location.reload();
 		});
 	}
 </script>
-
-
-
-
-
-
 
 <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>

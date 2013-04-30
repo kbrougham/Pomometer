@@ -6,7 +6,8 @@ Pomometer::Application.routes.draw do
 
   #get "reports/all"
   match "reports/all" => "reports#all"
-  
+  match "reports/:id" => "reports#show"
+
   resources :admins
 
   resources :milestones
