@@ -21,7 +21,12 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
-    session[:current_milestone] = Milestone.find(@task.milestone_id)
+    if @task.milestone_id.nil?
+      session[:current_milestone] = 0
+    else
+      session[:current_milestone] = Milestone.find(@task.milestone_id)
+    end
+    
   end
 
   # GET /tasks/new
@@ -47,7 +52,9 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
-    @project = Project.where(:id => @task.project_id).all
+    #@project = Project.where(:id => @task.project_id).all
+    @project = Project.find(session[:current_project])
+    @milestones = Milestone.where(project_id: session[:current_project]).map{ |m| [ m.name, m.id ] }
     session[:current_task] = @task.id
 
     respond_to do |format|

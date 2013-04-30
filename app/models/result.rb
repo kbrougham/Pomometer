@@ -15,12 +15,14 @@ class Result < ActiveRecord::Base
   end
 
   def result_date_in_milestone_range
-	if started_at < milestone_start
-      errors.add(:started_at, " must be started after #{milestone_start}")
-    end
+    if milestone_start != 0 && milestone_end != 0
+	    if started_at < milestone_start
+        errors.add(:started_at, " must be started after #{milestone_start}")
+      end
 
-    if ended_at > milestone_end
-      errors.add(:ended_at, " must be ended before #{milestone_end}")
+      if ended_at > milestone_end
+        errors.add(:ended_at, " must be ended before #{milestone_end}")
+      end
     end
   end
 

@@ -45,10 +45,14 @@ end
       @result.ended_at = @result.ended_at.in_time_zone("UTC")
       puts Time.zone
     end
-
-    @result.milestone_start = session[:current_milestone].starts_at
-    @result.milestone_end = session[:current_milestone].ends_at
-
+    if session[:current_milestone] != 0
+      @result.milestone_start = session[:current_milestone].starts_at
+      @result.milestone_end = session[:current_milestone].ends_at
+    else
+      @result.milestone_start = 0
+      @result.milestone_end = 0
+    end
+    
     respond_to do |format|
       if @result.save
         format.html { redirect_to @task, notice: 'Result was successfully created.' }
