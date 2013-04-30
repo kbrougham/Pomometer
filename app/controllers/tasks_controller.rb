@@ -21,6 +21,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
+    session[:current_milestone] = Milestone.find(@task.milestone_id)
   end
 
   # GET /tasks/new

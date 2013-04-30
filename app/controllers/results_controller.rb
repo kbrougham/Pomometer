@@ -35,7 +35,7 @@ end
     @task = Task.where(:id => @result.task_id).all
 
     if @result.duration.nil?
-      @result.errors.add(:duration, " can't be blank")
+      @result.errors.add(:duration, " what's up?")
     else
       #the end result is the start result + duration in minutes
       @result.ended_at = @result.started_at + (@result.duration*60)
@@ -45,6 +45,9 @@ end
       @result.ended_at = @result.ended_at.in_time_zone("UTC")
       puts Time.zone
     end
+
+    @result.milestone_start = session[:current_milestone].starts_at
+    @result.milestone_end = session[:current_milestone].ends_at
 
     respond_to do |format|
       if @result.save
