@@ -17,6 +17,9 @@
 			<td class='banner' width='80%'>				
 				<h1>Welcome to the Pomometer!</h1>
 				<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+				<% if session[:admin_id] != nil %>
+					<h4 style="color:green">Welcome Administrator</h4>
+				<% end %>
 			</td>
 
 			<td width='10%'>

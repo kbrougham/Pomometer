@@ -7,7 +7,9 @@
       <h1 style="text-align:right"><%=@task.name%></h1>
     </td>
     <td>
-      <h4><%= link_to 'New Result', new_result_path %></h4>
+      <% if session[:admin_id] != nil %>
+        <h4><%= link_to 'New Result', new_result_path %></h4>
+      <% end %>
     </td>
  </tr>
 
@@ -43,8 +45,10 @@
         <!--.in_time_zone("Eastern Time (US & Canada)")-->
         <td width='10%' style="text-align:center"><%= result.duration %> mins</td>
         <td width='15%' style="text-align:center" id=<%="ended_at_"+result.id.to_s%>><%= result.ended_at.in_time_zone %></td>
-        <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
-        <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if session[:admin_id] != nil %>
+          <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
+          <td width='10%' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   <% end %>
