@@ -31,7 +31,7 @@
 
 <% @admins.each do |admin| %>
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td><%= link_to admin.username, admin %></td>
+    <td><%= admin.username %></td>
     <td><%= admin.password %></td>
     <td><%= admin.role %></td>
     <% if session[:admin_id] != nil %>

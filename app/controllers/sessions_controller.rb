@@ -5,11 +5,11 @@ class SessionsController < ApplicationController
 
 	def create
 		admin = Admin.find_by_username(params[:username])
-		if admin.password = params[:password]
+		if admin && admin.password = params[:password]
 			session[:admin_id] = admin.id
 			redirect_to root_url, notice: "Logged In!"
 		else
-			flash.now.alert = "Invalid username or password"
+			flash.now[:notice] = "Invalid username or password"
 			render "new"
 		end
 	end
