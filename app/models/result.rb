@@ -30,7 +30,7 @@ class Result < ActiveRecord::Base
 
   def negative_duration
       if duration_check == true
-        errors.add(:duration, " must not be negative")
+        errors.add(:duration, " must be greater than 0")
       end
   end
 

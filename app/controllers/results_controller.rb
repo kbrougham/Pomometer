@@ -36,7 +36,7 @@ end
 
     if @result.duration.nil?
       @result.errors.add(:duration, " must not be empty.")
-    elsif @result.duration < 0
+    elsif @result.duration <= 0
       @result.duration_check = true
     else
       #the end result is the start result + duration in minutes
