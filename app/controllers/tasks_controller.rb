@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     @results = Result.where(task_id: params[:id]).order("goal ASC")
     session[:current_task] = params[:id]
     if @task.milestone_id.nil?
-      session[:current_milestone] = 0
+      session[:current_milestone] = nil
     else
       session[:current_milestone] = Milestone.find(@task.milestone_id)
     end
