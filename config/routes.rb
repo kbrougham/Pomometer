@@ -4,8 +4,9 @@ Pomometer::Application.routes.draw do
 
   get "reports/show"
 
-  get "reports/all"
-
+  #get "reports/all"
+  match "reports/all" => "reports#all"
+  
   resources :admins
 
   resources :milestones

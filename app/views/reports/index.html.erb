@@ -26,12 +26,10 @@
 		project_id = $("#project_dropdown").val();
 		
 		if (project_id == ""){
-		    console.log("got here")
-			$.post("/reports/all")
+			$.post("/reports/all");
 		}
 		else {
-			console.log("got to specific project");
-			$.post("/reports/" + project_id)
+			$.post("/reports/" + project_id);
 		}
 	}
 </script>
