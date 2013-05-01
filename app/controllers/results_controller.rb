@@ -35,7 +35,9 @@ end
     @task = Task.where(:id => @result.task_id).all
 
     if @result.duration.nil?
-      @result.errors.add(:duration, " can't be blank")
+      @result.errors.add(:duration, " must not be empty.")
+    elsif @result.duration <= 0
+      @result.duration_check = true
     else
       #the end result is the start result + duration in minutes
       @result.ended_at = @result.started_at + (@result.duration*60)
@@ -44,8 +46,29 @@ end
       @result.started_at = @result.started_at.in_time_zone("UTC")
       @result.ended_at = @result.ended_at.in_time_zone("UTC")
       puts Time.zone
-    end
 
+      if session[:current_milestone].nil?
+        @result.errors.add(:duration, " nothing")
+      else
+        if @result.started_at < session[:current_milestone].starts_at
+          @result.milestone_start = session[:current_milestone].starts_at
+        end
+
+        if @result.ended_at > session[:current_milestone].ends_at
+          @result.milestone_end = session[:current_milestone].ends_at
+        end
+      end
+
+      #if session[:current_milestone].nil?
+      #  @result.milestone_start = 0
+      #  @result.milestone_end = 0
+      #else
+      #  @result.milestone_start = session[:current_milestone].starts_at
+      #  @result.milestone_end = session[:current_milestone].ends_at
+      #end
+    end
+    
+    
     respond_to do |format|
       if @result.save
         format.html { redirect_to @task, notice: 'Result was successfully created.' }

@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
 
     session[:current_project] = @project.id
     session[:current_task] = nil  
+    session[:current_milestone] = nil
   end
 
   # GET /projects/new

@@ -17,6 +17,9 @@
 			<td class='banner' width='80%'>				
 				<h1>Welcome to the Pomometer!</h1>
 				<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+				<% if session[:admin_id] != nil %>
+					<h4 style="color:green">Welcome Administrator</h4>
+				<% end %>
 			</td>
 
 			<td width='10%'>
@@ -36,16 +39,16 @@
 
 			    <% if session[:current_project] != nil %>
 			   		||
+			   		<%= link_to '[Task List]', Project.find(session[:current_project])%>
 			   		<% if session[:admin_id] != nil %>
 			    		<%= link_to '[New Task]', new_task_path %>
 			    	<% end %>
-			    	<%= link_to '[Task List]', Project.find(session[:current_project])%>
 			    	<% if session[:current_task] != nil %>
 				    	||
+				    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 				    	<% if session[:admin_id] != nil %>
 				    		<%= link_to '[New Result]', new_result_path %>
 				    	<% end %>
-				    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
 			    	<% end %>
 			    	||
 			    	<%= link_to '[Milestones]', milestones_path %>
@@ -56,6 +59,7 @@
 					<%= link_to '[Login]', new_session_path %>
 				<% else %>
 					||
+					<%= link_to '[Admins]', admins_path %>
 					<%= link_to '[Logout]', session_path(session), method: :delete %>
 				<% end %>
 			    ||

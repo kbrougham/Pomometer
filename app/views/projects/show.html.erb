@@ -5,7 +5,9 @@
       <h1><%=@project.name%></h1>
     </td>
     <td>
-      <h4><%= link_to 'New Task', new_task_path %></h4>
+      <% if session[:admin_id] != nil %>
+        <h4><%= link_to 'New Task', new_task_path %></h4>
+      <% end %>
     </td>
  </tr>
 
@@ -14,7 +16,7 @@
   <% if @tasks.empty? and @tasks_without_milestone.empty? %>
     <tr>
       <td>
-        <h2 style="text-align:center">You don't have any tasks added yet, please add tasks above.</h2>
+        <h2 style="text-align:center">No tasks have been added to this project yet.</h2>
       </td>
     </tr>
   <% else %>
@@ -35,8 +37,10 @@
           <td width='20%'><%= link_to task.name, task %></td>
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>
-          <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-          <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if session[:admin_id] != nil %>
+            <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     <% end %>
@@ -56,8 +60,10 @@
           <td width='20%'><%= link_to task.name, task %></td>
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>
-          <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-          <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if session[:admin_id] != nil %>
+            <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     <% end %>
