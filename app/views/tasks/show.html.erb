@@ -4,7 +4,7 @@
 
 <tr>
     <td>
-      <h1 style="text-align:right"><%=@task.name%></h1>
+      <h1><%=@task.name%></h1>
     </td>
     <td>
       <% if session[:admin_id] != nil %>
@@ -31,22 +31,22 @@
   	<tr class='table_header'>
   		<td width='10%'>Goal</td>
   	  <td width='30%'>Notes</td>
-  	  <td width='15%'>Started At</td>
+  	  <td width='15%' style='text-align: center;'>Started At</td>
   	  <td width='10%'>Duration</td>
-  	  <td width='15%'>Ended At</td>
+  	  <td width='15%' style='text-align: center;'>Ended At</td>
   	</tr>
 
     <% @results.each do |result| %>
     	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-        <td style="text-align:center"><%= link_to result.goal, edit_result_path(result) %></td>
+        <td><%= link_to result.goal, edit_result_path(result) %></td>
         <td><%= result.notes %></td>
         <td style="text-align:center" id=<%="started_at_"+result.id.to_s%>><%=result.started_at.in_time_zone %></td>
         <!--.in_time_zone("Eastern Time (US & Canada)")-->
         <td style="text-align:center"><%= result.duration %> mins</td>
         <td style="text-align:center" id=<%="ended_at_"+result.id.to_s%>><%= result.ended_at.in_time_zone %></td>
         <% if session[:admin_id] != nil %>
-          <td style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
-          <td style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class='hidable' style="text-align:center"><%= link_to 'Edit', edit_result_path(result) %></td>
+          <td class='hidable' style="text-align:center"><%= link_to 'Delete', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>

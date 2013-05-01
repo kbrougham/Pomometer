@@ -22,7 +22,7 @@
     </tr>
   <% else %>
 
-  <tr>
+  <tr class='table_header'>
     <th>Name</th>
     <th>Starts at</th>
     <th>Ends at</th>
@@ -36,8 +36,8 @@
 <% @milestones.each do |milestone| %>
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= link_to milestone.name, milestone %></td>
-    <td><%= milestone.starts_at.in_time_zone %></td>
-    <td><%= milestone.ends_at.in_time_zone %></td>
+    <td style='text-align:center;'><%= milestone.starts_at.in_time_zone %></td>
+    <td style='text-align:center'><%= milestone.ends_at.in_time_zone %></td>
     <% if session[:admin_id] != nil %>
       <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
       <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>

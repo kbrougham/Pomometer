@@ -22,7 +22,7 @@
 
     <% @tasks_by_milestone.each do |name, tasks| %>
       <tr>
-        <td colspan="6"><h4>MILESTONE: <%= name %></h4><hr/></td>
+        <td colspan="6"><h3>MILESTONE: <%= name %></h3><hr/></td>
       </tr>
         <tr class='table_header'>
           <td>Complete</td>
@@ -37,15 +37,15 @@
           <td><%= task.description %></td>
           <td style="text-align:center"><%= task.effort %></td>
           <% if session[:admin_id] != nil %>
-            <td style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
       <% end %>
     <% end %>
     <% if @tasks_without_milestone.present? %>
       <tr>
-        <td colspan="6"><h4>TASKS WITH NO MILESTONE</h4><hr/></td>
+        <td colspan="6"><h3>TASKS WITH NO MILESTONE</h3><hr/></td>
       </tr>
         <tr class='table_header'>
           <td>Complete</td>
@@ -60,8 +60,8 @@
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>
           <% if session[:admin_id] != nil %>
-            <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td width='10%' class='hidable' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
       <% end %>

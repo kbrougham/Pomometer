@@ -14,8 +14,8 @@
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= link_to project.name, project %></td>
     <% if session[:admin_id] != nil %>
-      <td><%= link_to 'Edit', edit_project_path(project) %></td>
-      <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td class='hidable'><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td class='hidable'><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
   </tr>
 <% end %>
