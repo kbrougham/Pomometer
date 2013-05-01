@@ -10,13 +10,18 @@ class ReportsController < ApplicationController
 
     # /reports/1
   def show
-  	if params[:start_date_year].nil?
-  		@start_date = Date.today - 1.month
-  		@end_date = Date.today
-  	else
-  		@start_date = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
-  		@end_date = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)
-  	end
+  	if session[:start_date].nil?
+        session[:start_date] = Date.today - 1.month
+        session[:end_date] = Date.today
+    end
+    
+    if !params[:start_date_year].nil?
+      session[:start_date] = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
+      session[:end_date] = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)    
+    end
+
+    @start_date = session[:start_date].to_date
+    @end_date = session[:end_date].to_date
 
   	@project = Project.find(params[:id])
   	@tasks = Task.where(project_id: @project.id)
@@ -34,28 +39,37 @@ class ReportsController < ApplicationController
 	# /reports/all
 	def all
 		@tasks = Task.all
-		if params[:start_date_year].nil?
-  			@start_date = Date.today - 1.month
-  			@end_date = Date.today
-  		else
-  			@start_date = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
-  			@end_date = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)
-  		end
+		if session[:start_date].nil?
+  			session[:start_date] = Date.today - 1.month
+  			session[:end_date] = Date.today
+  	end
+  	
+    if !params[:start_date_year].nil?
+      session[:start_date] = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
+      session[:end_date] = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)    
+    end
 
-  		@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
+    @start_date = session[:start_date].to_date
+  	@end_date = session[:end_date].to_date
+  	
+    @results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
 	end
 
     # /reports/statistics
   def statistics
 
-  	if params[:start_date_year].nil?
-  		@start_date = Date.today - 1.month
-  		@end_date = Date.today
-  	else
-  		@start_date = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
-  		@end_date = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)
-  	end
-  	
+  	if session[:start_date].nil?
+        session[:start_date] = Date.today - 1.month
+        session[:end_date] = Date.today
+    end
+    
+    if !params[:start_date_year].nil?
+      session[:start_date] = Date.new(params[:start_date_year].to_i,params[:start_date_month].to_i,params[:start_date_day].to_i)
+      session[:end_date] = Date.new(params[:end_date_year].to_i,params[:end_date_month].to_i,params[:end_date_day].to_i)    
+    end
+
+    @start_date = session[:start_date].to_date
+    @end_date = session[:end_date].to_date
 
   	@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
   	#@earliest_result = DateTime.now
