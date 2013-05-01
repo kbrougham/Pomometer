@@ -21,15 +21,15 @@
     <td colspan='2'><em>This milestone has no associated tasks yet.</em></td>
   </tr>
 <% else %>
-    <tr class='table_header'>
-		<td width='40%'>Task Name</td>
-		<td width='40%'>Project Name</td>
+  <tr class='table_header'>
+		<td>Task Name</td>
+		<td>Project Name</td>
 	</tr>
   <% @tasks.each do |task| %>
     <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-      <td width='40%'><%= link_to task.name, task %></td>
-      <td width='40%'><%= task.project.name %></td>
-      <td width='20%'><%= link_to 'Edit', edit_task_path(task) %></td>
+      <td><%= link_to task.name, task %></td>
+      <td><%= task.project.name %></td>
+      <td><%= link_to 'Edit', edit_task_path(task) %></td>
     </tr>
   <% end %>
 <% end %>

@@ -11,13 +11,19 @@ $darker_green_text: #003500;
   color: $green_text;  
 }
 
+.corner_image {
+  width: 10%;  
+}
+
 .sidepanel {
   background-color: $red_text;
+  width: 10%;
 }
 
 .banner {
   text-align: center;
   color: $red_text;
+  width: 80%;
 }
 
 .navbar{
@@ -27,11 +33,51 @@ $darker_green_text: #003500;
     &:visited { color:$darker_red_text;}
     &:hover { color: #fff; background-color: #000;}
   }
+  width: 80%;
 }
 
-.main {
+@mixin main {
   margin-left: auto;
-  margin-right: auto;  
+  margin-right: auto; 
+}
+
+//separate as to allow future changing to singular pages
+.layout_wrapper {
+  @include main;
+}
+
+.admins_main {
+  @include main;
+  width: 70%;
+} 
+
+.milestones_main {
+  @include main;
+  width: 70%;  
+}
+
+.projects_main{
+  @include main;
+  width: 70%;
+}
+
+.tasks_main{
+  @include main;
+  width: 70%;  
+}
+
+.reports_all_main{
+  @include main;
+  width: 70%;  
+}
+.reports_show_main{
+  @include main;
+  width: 70%;  
+}
+
+.results_main {
+  @include main;
+  width: 70%;  
 }
 
 hr {
@@ -148,3 +194,5 @@ div {
     list-style: square;
   }
 }
+
+//table sizes
