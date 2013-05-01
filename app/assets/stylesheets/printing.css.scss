@@ -10,6 +10,11 @@ img {
 button, input {
   display: none
 }
+
+.hidable {
+  display: none;
+}
+
 .red_text {
   color: $red_text;
 }
@@ -30,7 +35,7 @@ button, input {
   display: none;
   a {
       display: none;
-    }  
+  }  
 }
 
 .main {
@@ -53,11 +58,7 @@ h2 {
 }
 
 h4 {
-  a{
-    color:$green_text;
-    &:visited { color:$darker_green_text;}
-    &:hover { color: #fff; background-color: #000}
-  }
+  display: none;
 }
 
 .alternating_even {

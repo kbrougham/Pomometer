@@ -4,29 +4,29 @@
     </td>
  </tr>
 <tr class='table_header'>
-		<td>
-			Start date:  
-		</td>
-		<td>
-			<%= select_date(@start_date, :prefix => 'started') %>
-		</td>
-	</tr>
-	<tr class='table_header'>
-		<td>
-			End Date:
-		</td>
-		<td>
-			<%= select_date(@end_date, :prefix => 'ended') %>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
-		</td>
-	</tr>
+	<td>
+		Start date:  
+	</td>
+	<td>
+		<%= select_date(@start_date, :prefix => 'started') %>
+	</td>
+</tr>
+<tr class='table_header'>
+	<td>
+		End Date:
+	</td>
+	<td>
+		<%= select_date(@end_date, :prefix => 'ended') %>
+	</td>
+</tr>
+<tr>
+	<td></td>
+	<td>
+		<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
+	</td>
+</tr>
 
-<table class='main' width='70%'>
+<table class='reports_all_main' width='70%'>
 	<% if @results.empty? %>
 		<tr>
 			<td>

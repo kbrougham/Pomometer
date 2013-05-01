@@ -11,8 +11,7 @@
     </td>
  </tr>
 
-
-<table class='main' width='70%'>
+<table class='tasks_main'>
   <% if @tasks.empty? and @tasks_without_milestone.empty? %>
     <tr>
       <td>
@@ -23,36 +22,36 @@
 
     <% @tasks_by_milestone.each do |name, tasks| %>
       <tr>
-        <td colspan="6"><h4>MILESTONE: <%= name %></h4><hr/></td>
+        <td colspan="6"><h3>MILESTONE: <%= name %></h3><hr/></td>
       </tr>
         <tr class='table_header'>
-          <td width='10%'>Complete</td>
-          <td width='20%'>Name</td>
-          <td width='60%'>Description</td>
-          <td width='10%'>Effort</td>
+          <td>Complete</td>
+          <td>Name</td>
+          <td>Description</td>
+          <td>Effort</td>
       </tr>
       <% tasks.each do |task| %>
     	  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-          <td width='10%'><%= task.completed ? "Yes" : "No" %></td>
-          <td width='20%'><%= link_to task.name, task %></td>
-          <td width='50%'><%= task.description %></td>
-          <td width='10%' style="text-align:center"><%= task.effort %></td>
+          <td><%= task.completed ? "Yes" : "No" %></td>
+          <td><%= link_to task.name, task %></td>
+          <td><%= task.description %></td>
+          <td style="text-align:center"><%= task.effort %></td>
           <% if session[:admin_id] != nil %>
-            <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
       <% end %>
     <% end %>
     <% if @tasks_without_milestone.present? %>
       <tr>
-        <td colspan="6"><h4>TASKS WITH NO MILESTONE</h4><hr/></td>
+        <td colspan="6"><h3>TASKS WITH NO MILESTONE</h3><hr/></td>
       </tr>
         <tr class='table_header'>
-          <td width='10%'>Complete</td>
-          <td width='20%'>Name</td>
-          <td width='60%'>Description</td>
-          <td width='10%'>Effort</td>
+          <td>Complete</td>
+          <td>Name</td>
+          <td>Description</td>
+          <td>Effort</td>
         </tr>
       <% @tasks_without_milestone.each do |task| %>
         <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
@@ -61,8 +60,8 @@
           <td width='50%'><%= task.description %></td>
           <td width='10%' style="text-align:center"><%= task.effort %></td>
           <% if session[:admin_id] != nil %>
-            <td width='10%' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
-            <td style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td width='10%' class='hidable' style="text-align:center"><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td class='hidable' style="text-align:center"><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
       <% end %>
