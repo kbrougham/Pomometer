@@ -1,4 +1,11 @@
 class AdminsController < ApplicationController
+  before_filter :auth_access
+
+  def auth_access
+    if session[:admin_id].nil?
+      redirect_to root_url
+    end
+  end
   # GET /admins
   # GET /admins.json
   def index

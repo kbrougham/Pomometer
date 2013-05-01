@@ -1,4 +1,12 @@
 class ProjectsController < ApplicationController
+  before_filter :auth_access, only: [:edit, :update, :destroy, :new, :create]
+
+  def auth_access
+    if session[:admin_id].nil?
+      redirect_to root_url
+    end
+  end
+
   # GET /projects
   # GET /projects.json
 
