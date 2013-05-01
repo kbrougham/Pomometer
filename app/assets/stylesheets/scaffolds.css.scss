@@ -15,6 +15,15 @@ $darker_green_text: #003500;
   background-color: $red_text;
 }
 
+#sidepanel {
+  background-color: $red_text;
+}
+
+#centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .banner {
   text-align: center;
   color: $red_text;
@@ -97,13 +106,13 @@ pre {
 }
 
 a {
-  color: #333;
+  color: $red_text;
   &:visited {
-    color: #000;
+    color: $green_text;
   }
   &:hover {
-    color: #fff;
-    background-color: #000;
+    color: $red_text;
+    background-color: fff;
   }
 }
 
