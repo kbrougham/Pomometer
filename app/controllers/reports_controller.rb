@@ -1,4 +1,8 @@
 class ReportsController < ApplicationController
+	#temporary EST hard code for time's sake
+	Time.zone = "EST"
+
+
 	# /reports
   def index
   	@projects = Project.all
