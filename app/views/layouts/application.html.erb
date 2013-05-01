@@ -7,34 +7,32 @@
   <%= stylesheet_link_tag    'printing', media: 'print' %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
+  
 </head>
 <body>
 <div class='container-fluid'>
-	<table width='100%'>
-		<tr class='hidable'>
-			<td class='corner_image'>
-				<img src="/assets/pomo.png" alt="pomo"></img>
-			</td>
-
-			<td class='banner'>				
-				<h1>Welcome to the Pomometer!</h1>
-				<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
-				<% if session[:admin_id] != nil %>
-					<h4 style="color:green">Welcome Administrator</h4>
-				<% end %>
-			</td>
-
-			<td class='corner_image'>
-				<img src="/assets/pomo.png" alt="pomo"></img>
-			</td>
-		</tr>
-		<tr class='hidable'>
-			<td rowspan='2' class='sidepanel'>
-				<!--left panel-->
-			</td>
-			<td class="navbar">	
-			    <%= link_to '[Projects Home]', projects_path %>
+	<div class='row'>
+		<div class='span2'>
+			<img src="/assets/pomo.png" alt="pomo"></img>
+		</div>
+		<div class='span8'>
+			<h1>Welcome to the Pomometer!</h1>
+			<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+			<% if session[:admin_id] != nil %>
+				<h4 style="color:green">Welcome Administrator</h4>
+			<% end %>
+		</div>
+		<div class='span2'>
+			<img src="/assets/pomo.png" alt="pomo"></img>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='span2' id='left_panel' style='background-color:#ca0000'>
+		</div>
+		<div class='span8' id='main_panel'>
+			<%= link_to '[Projects Home]', projects_path %>
 
 			    <% if session[:admin_id] != nil %>
 			    	<%= link_to '[New Project]', new_project_path %>	
@@ -56,31 +54,36 @@
 			    	||
 			    	<%= link_to '[Milestones]', milestones_path %>
 			    <% end %>
-
+			    <br/>
 			    <% if session[:admin_id].nil? %>
-			    	||
 					<%= link_to '[Login]', new_session_path %>
 				<% else %>
-					||
 					<%= link_to '[Admins]', admins_path %>
+					||
 					<%= link_to '[Logout]', session_path(session), method: :delete %>
 				<% end %>
 			    ||
 			    <%= link_to '[Reports]', :controller => :reports, :action => :index %>
 			    <hr/>
-			</td>
-			<td rowspan='2' class='sidepanel'>
-				<!-- right panel -->
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table class='layout_wrapper'>
+			    <table class='main' id='centered'>
 					<%= yield %>
 				</table>
-			</td>
-		</tr>		
-	</table>
+		</div>
+		<div class='span2' id='right_panel' style='background-color:#ca0000'S>
+		</div>
+	</div>
 </div>
 </body>
 </html>
+<script>
+  $(window).bind('ready', function(){
+  	var maxHeight = $('#main_panel').height;
+
+	
+    $('#left_panel').height(maxHeight);
+    $('#right_panel').height(maxHeight);
+
+  });
+  	
+	
+  </script>
