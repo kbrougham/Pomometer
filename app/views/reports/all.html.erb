@@ -69,10 +69,12 @@
 					<%= result.ended_at %>
 				</td>
 				<td>
-					<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+					<% @list_task = Task.find(result.task_id) %> 
+					<%= link_to @list_task.name, @list_task %>
 				</td>
 				<td>
-					<%= link_to Project.find(Task.find(result.task_id).project_id).name, Project.find(Task.find(result.task_id).project_id) %>
+					<% @list_project = Project.find(@list_task.project_id) %>
+					<%= link_to @list_project.name, @list_project %>
 				</td>
 			</tr>
 		<% end %>
@@ -90,18 +92,17 @@
 		var end_date_month = $('#ended_month').val();
 		var end_date_day = $('#ended_day').val();
 
-		console.log (<%=params[:id]%>)
 		console.log (start_date_year)
 		console.log (start_date_month)
 		console.log (start_date_day)
 		console.log (end_date_year)
 		console.log (end_date_month)
 		console.log (end_date_day)
-		console.log ("!")
+		console.log ("----------------")
 
-		$.post("/reports/<%= params[:id] %>", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
+		$.post("/reports/all", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
 		{			
-			//location.reload();
+			//window.location.reload();
 		});
 	}
 </script>

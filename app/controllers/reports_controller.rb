@@ -29,6 +29,7 @@ class ReportsController < ApplicationController
 
 	# /reports/all
 	def all
+		@tasks = Task.all
 		if params[:start_date_year].nil?
   			@start_date = Date.today - 1.month
   			@end_date = Date.today
