@@ -56,13 +56,14 @@
 
 			    <% if session[:admin_id].nil? %>
 			    	||
-					<%= link_to '[LOGIN]', new_session_path %>
+					<%= link_to '[Login]', new_session_path %>
 				<% else %>
 					||
-					<%= link_to '[ADMINS]', admins_path %>
-					<%= link_to '[LOGOUT]', session_path(session), method: :delete %>
+					<%= link_to '[Admins]', admins_path %>
+					<%= link_to '[Logout]', session_path(session), method: :delete %>
 				<% end %>
-			    
+			    ||
+			    <%= link_to '[Reports]', :controller => :reports, :action => :index %>
 			    <hr/>
 			</td>
 			<td width='10%' rowspan='2' class='sidepanel'>

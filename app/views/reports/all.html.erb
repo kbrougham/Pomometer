@@ -1,60 +1,108 @@
-<table class='main' width='70%'>
-	<tr class='table_header'>
-		<td># of Pomodoro</td>
-		<td>Minutes worked</td>
-	</tr>
-	<tr>
-		<td><%= @pomodoro_completed %></td>
-		<td><%= @hours_worked %>h <%= @minutes_worked %>m</td>
-				<td><%= @minutes_worked_range_1_15 %></td>
-
-		<td><%= @minutes_worked_range_16_30 %></td>
-
-		<td><%= @minutes_worked_range_31_45 %></td>
-
-		<td><%= @minutes_worked_range_46_60 %></td>
-
-	</tr>
-	<tr>
-		<td colspan='6'>
-			<div id="chart_div" style="margin: 0 auto"/>
+<tr>
+    <td colspan='2' style="text-align:center">
+      <h1>All Projects</h1>
+    </td>
+ </tr>
+<tr class='table_header'>
+		<td>
+			Start date:  
+		</td>
+		<td>
+			<%= select_date(@start_date, :prefix => 'started') %>
 		</td>
 	</tr>
+	<tr class='table_header'>
+		<td>
+			End Date:
+		</td>
+		<td>
+			<%= select_date(@end_date, :prefix => 'ended') %>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
+		</td>
+	</tr>
+
+<table class='main' width='70%'>
+	<% if @results.empty? %>
+		<tr>
+			<td>
+				<h2 style="text-align:center">No results have met this date filter, please broaden date range.</h2>
+			</td>
+		</tr>
+	<% else %>
+		<tr class='table_header'>
+			<td>
+				Goal
+			</td>
+			<td>
+				Notes
+			</td>
+			<td>
+				Started At
+			</td>
+			<td>
+				Ended At
+			</td>
+			<td>
+				Task Name
+			</td>
+			<td>
+				Project Name
+			</td>
+		</tr>
+		<% @results.each do |result| %>
+			<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+				<td>
+					<%= result.goal %>
+				</td>
+				<td>
+					<%= result.notes %>
+				</td>
+				<td>
+					<%= result.started_at %>
+				</td>
+				<td>
+					<%= result.ended_at %>
+				</td>
+				<td>
+					<% @list_task = Task.find(result.task_id) %> 
+					<%= link_to @list_task.name, @list_task %>
+				</td>
+				<td>
+					<% @list_project = Project.find(@list_task.project_id) %>
+					<%= link_to @list_project.name, @list_project %>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
 </table>
 
-<!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
 
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
+<script>	
+	function buttonClicked(){
+		var start_date_year = $('#started_year').val();
+		var start_date_month = $('#started_month').val();
+		var start_date_day = $('#started_day').val();
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
+		var end_date_year = $('#ended_year').val();
+		var end_date_month = $('#ended_month').val();
+		var end_date_day = $('#ended_day').val();
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
+		console.log (start_date_year)
+		console.log (start_date_month)
+		console.log (start_date_day)
+		console.log (end_date_year)
+		console.log (end_date_month)
+		console.log (end_date_day)
+		console.log ("----------------")
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['1-15min', <%= @minutes_worked_range_1_15 %>],
-          ['16-30min', <%= @minutes_worked_range_16_30 %>],
-          ['31-45min', <%= @minutes_worked_range_31_45 %>],
-          ['46-60min', <%= @minutes_worked_range_46_60 %>]
-        ]);
-
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
+		$.post("/reports/all", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
+		{			
+			//window.location.reload();
+		});
+	}
+</script>

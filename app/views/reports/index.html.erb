@@ -1,5 +1,5 @@
   <tr>
-    <td>
+    <td colspan='2' style="text-align:center">
       <h1>Reports</h1>
     </td>
   </tr>
@@ -10,11 +10,19 @@
 <% else %>
   <tr style="text-align:center">
   	<td>
-  	  <%= select_tag "project_dropdown", options_from_collection_for_select(@projects, "id", "name"), :prompt => "All Projects" %>
+      <%= link_to "All projects", controller: "reports", action: "all"%>
+    </td>
+    <td>
+      <%= link_to "Statistics", controller: "reports", action: "statistics" %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan='2' style="text-align:center">
+  	  <%= select_tag "project_dropdown", options_from_collection_for_select(@projects, "id", "name")%>
   	</td>
   </tr>
   <tr style="text-align:center">
-  	<td>
+  	<td colspan='2' style="text-align:center">
   		<%= button_to "View Report", "javascript:buttonClicked()" %>
   	</td>
   </tr>
@@ -25,13 +33,7 @@
 		var project_id = null;
 		project_id = $("#project_dropdown").val();
 		
-		if (project_id == ""){
-		    console.log("got here")
-			$.post("/reports/all")
-		}
-		else {
-			console.log("got to specific project");
-			$.post("/reports/" + project_id)
-		}
+    //works but problematic
+	  window.location.replace(project_id);
 	}
 </script>

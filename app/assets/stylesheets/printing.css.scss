@@ -1,0 +1,112 @@
+$red_text: #ca0000;
+$darker_red_text: #a00; 
+$green_text: #008000;
+$darker_green_text: #003500;
+
+img {
+  display: none
+}
+
+button, input {
+  display: none
+}
+.red_text {
+  color: $red_text;
+}
+
+.green_text {
+  color: $green_text;  
+}
+
+.sidepanel {
+  display: none;
+}
+
+.banner {
+  display: none;
+}
+
+.navbar{
+  display: none;
+  a {
+      display: none;
+    }  
+}
+
+.main {
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+hr {
+  color:$red_text;
+  background-color:$red_text;
+  height: 3px;
+}
+
+h1 {
+  color:$red_text;
+}
+
+h2 {
+  color:$red_text;
+}
+
+h4 {
+  a{
+    color:$green_text;
+    &:visited { color:$darker_green_text;}
+    &:hover { color: #fff; background-color: #000}
+  }
+}
+
+.alternating_even {
+  background-color: #B3EE3A;
+}
+
+.alternating_odd {
+  
+}
+
+.formwrapper {
+  margin:auto;
+  color:$red_text;
+  text-align: center;
+}
+
+.table_header {
+  color:$red_text;
+  font-weight:bold;
+}
+/* default */
+
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a {
+  color: #333;
+  &:visited {
+    color: #000;
+  }
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
