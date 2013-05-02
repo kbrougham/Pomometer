@@ -25,15 +25,23 @@ class ReportsController < ApplicationController
 
   	@project = Project.find(params[:id])
   	@tasks = Task.where(project_id: @project.id)
-  	@results = nil
+  	#@results = nil
  	
-  	@tasks.each do |task|
-  		if @results.nil?
-  			@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
-  		else
-  			@results << Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
-  		end
-  	end
+  	#@tasks.each do |task|
+  	#	if @results.nil?
+  	#		@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
+  	#	else
+  	#		@results << Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
+  	#	end
+  	#end
+
+    @results = []
+    @tasks.each do |task|
+      temp = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day, task_id: task.id)
+      for t in temp
+        @results << t
+      end
+    end
   end
 
 	# /reports/all
