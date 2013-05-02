@@ -1,40 +1,43 @@
-<tr>
-    <td colspan='2' style="text-align:center">
-      <h1><%=@project.name%></h1>
-    </td>
- </tr>
-<tr class='table_header'>
-		<td>
-			Start date:  
-		</td>
-		<td>
-			<%= select_date(@start_date, :prefix => 'started') %>
-		</td>
-	</tr>
-	<tr class='table_header'>
-		<td>
-			End Date:
-		</td>
-		<td>
-			<%= select_date(@end_date, :prefix => 'ended') %>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
-		</td>
-	</tr>
+<div class='row'>
+	<div class='span3'></div>
+	<div class='span2'><h1><%=@project.name%></h1></div>
+	<div class='span3'></div>
+</div>
 
-<table class='reports_show_main'>
+<div class='row'>
+	<div class='span2'></div>
+	<div class='span2'><h4>Start Date:<h4></div>
+	<div class='span2'><%= select_date(@start_date, :prefix => 'started') %></div>
+	<div class='span2'></div>
+</div>
+
+<div class='blank_space'></div>
+
+<div class='row'>
+	<div class='span2'></div>
+	<div class='span2'><h4>End Date:<h4></div>
+	<div class='span2'><%= select_date(@end_date, :prefix => 'ended') %></div>
+	<div class='span2'></div>
+</div>
+
+<div class='row'>
+	<div class='span2'></div>
+	<div class='span4'><%= button_to "Filter Dates", "javascript:buttonClicked()" %></div>
+	<div class='span2'></div>
+</div>
+
+<table class='table table-striped'>
 	<% if @results.empty? %>
+	<thead>
 		<tr>
 			<td>
 				<h2 style="text-align:center">No results have met this date filter, please broaden date range.</h2>
 			</td>
 		</tr>
+	</thead>
 	<% else %>
-		<tr class='table_header'>
+	<thead>
+		<tr>
 			<td>
 				Goal
 			</td>
@@ -51,28 +54,30 @@
 				Task Name
 			</td>
 		</tr>
-		<% @results.each do |result| %>
-			<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-				<td>
-					<%= result.goal %>
-				</td>
-				<td>
-					<%= result.notes %>
-				</td>
-				<td>
-					<%= result.started_at %>
-				</td>
-				<td>
-					<%= result.ended_at %>
-				</td>
-				<td>
-					<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
-				</td>
-			</tr>
-		<% end %>
+	</thead>
+		<tbody>
+			<% @results.each do |result| %>
+				<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+					<td>
+						<%= result.goal %>
+					</td>
+					<td>
+						<%= result.notes %>
+					</td>
+					<td>
+						<%= result.started_at %>
+					</td>
+					<td>
+						<%= result.ended_at %>
+					</td>
+					<td>
+						<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
 	<% end %>
 </table>
-
 
 <script>	
 	function buttonClicked(){
@@ -83,15 +88,6 @@
 		var end_date_year = $('#ended_year').val();
 		var end_date_month = $('#ended_month').val();
 		var end_date_day = $('#ended_day').val();
-
-		console.log (<%=params[:id]%>)
-		console.log (start_date_year)
-		console.log (start_date_month)
-		console.log (start_date_day)
-		console.log (end_date_year)
-		console.log (end_date_month)
-		console.log (end_date_day)
-		console.log ("-----------------")
 
 		$.post("/reports/<%= params[:id] %>", { start_date_year : start_date_year, start_date_month : start_date_month, start_date_day : start_date_day, end_date_year : end_date_year, end_date_month : end_date_month, end_date_day : end_date_day}, function(date)
 		{			
