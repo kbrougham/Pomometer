@@ -3,81 +3,108 @@
 <head>
   <title>Pomometer</title>
   <%= stylesheet_link_tag    'scaffolds', media: 'screen' %>
+  <%= stylesheet_link_tag    'bootstrap_and_overrides', media: 'screen' %>
   <%= stylesheet_link_tag    'printing', media: 'print' %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>  
 </head>
 <body>
-	<table width='100%'>
-		<tr class='hidable'>
-			<td class='corner_image'>
-				<img src="/assets/pomo.png" alt="pomo"></img>
-			</td>
+<div class='container-fluid'>
+	<div class='row'>
+		<div class='span2'>
+			<img src="/assets/pomo.png" alt="pomo"></img>
+		</div>
+		<div class='span8'>
+			<h1>Welcome to the Pomometer!</h1>
+			<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+			<% if session[:admin_id] != nil %>
+				<h4 style="color:green">Welcome Administrator</h4>
+			<% end %>
+		</div>
+		<div class='span2'>
+			<img src="/assets/pomo.png" alt="pomo"></img>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='span2 panel' id='left_panel' style='background-color:#ca0000'>
+		</div>
+		<div class='span8 panel' id='main_panel'>
+			<div class="navbar" id='centered' style='width:100%'>  
+  				<div class="navbar-inner">  
+    				<div class="container-fluid">  
+    					<ul class="nav"> 
 
-			<td class='banner'>				
-				<h1>Welcome to the Pomometer!</h1>
-				<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
-				<% if session[:admin_id] != nil %>
-					<h4 style="color:green">Welcome Administrator</h4>
-				<% end %>
-			</td>
+    						<% if session[:admin_id].nil? %> 
 
-			<td class='corner_image'>
-				<img src="/assets/pomo.png" alt="pomo"></img>
-			</td>
-		</tr>
-		<tr class='hidable'>
-			<td rowspan='2' class='sidepanel'>
-				<!--left panel-->
-			</td>
-			<td class="navbar">	
-			    <%= link_to '[Projects Home]', projects_path %>
+  								<li><%= link_to 'Projects', projects_path %></li> 
+  								<% if session[:current_project] != nil %>
+			   						<li><%= link_to 'Tasks', Project.find(session[:current_project])%></li>
+			    					<% if session[:current_task] != nil %>
+				    					<li><%= link_to 'Results', Task.find(session[:current_task]) %></li>
+			    					<% end %>
+			    	            	<li><%= link_to 'Milestones', milestones_path %></li>
+			    				<% end %> 
+			    			<li><%= link_to 'Reports', :controller => :reports, :action => :index %></li>
+			    			<li><%= link_to 'Login', new_session_path %></li>
 
-			    <% if session[:admin_id] != nil %>
-			    	<%= link_to '[New Project]', new_project_path %>	
-			    <% end %>	    
+  							<% else %>
 
-			    <% if session[:current_project] != nil %>
-			   		||
-			   		<%= link_to '[Task List]', Project.find(session[:current_project])%>
-			   		<% if session[:admin_id] != nil %>
-			    		<%= link_to '[New Task]', new_task_path %>
-			    	<% end %>
-			    	<% if session[:current_task] != nil %>
-				    	||
-				    	<%= link_to '[Result List]', Task.find(session[:current_task]) %>
-				    	<% if session[:admin_id] != nil %>
-				    		<%= link_to '[New Result]', new_result_path %>
-				    	<% end %>
-			    	<% end %>
-			    	||
-			    	<%= link_to '[Milestones]', milestones_path %>
-			    <% end %>
+  								<li class='dropdown'>
+  									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a> 
+  									<ul class="dropdown-menu">  
+     									<li><%= link_to 'Projects List', projects_path %></li>  
+ 										<li><%= link_to 'Create a Project', new_project_path %></li>    
+    								</ul> 
+    							</li>
+    							<% if session[:current_project] != nil %>
+  									<li class='dropdown'>
+  										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks<b class="caret"></b></a> 
+  										<ul class="dropdown-menu">  
+     										<li><%= link_to 'Task List', Project.find(session[:current_project])%></li>  
+ 											<li><%= link_to 'Create a Task', new_task_path %></li>    
+    									</ul> 
+    								</li>
+    								<% if session[:current_task] != nil %>
+    									<li class='dropdown'>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Results<b class="caret"></b></a> 
+  										<ul class="dropdown-menu">  
+     										<li><%= link_to 'Result List', Task.find(session[:current_task]) %></li>  
+ 											<li><%= link_to 'Create a Result', new_result_path %></li>    
+    									</ul> 
+    									</li>
+    								<% end %>
+    								<li><%= link_to 'Milestones', milestones_path %></li>
+    							<% end %>
+    							<li><%= link_to 'Reports', :controller => :reports, :action => :index %></li>
+    							<li><%= link_to 'Admins', admins_path %></li>
+    							<li><%= link_to 'Logout', session_path(session), method: :delete %></li>
 
-			    <% if session[:admin_id].nil? %>
-			    	||
-					<%= link_to '[Login]', new_session_path %>
-				<% else %>
-					||
-					<%= link_to '[Admins]', admins_path %>
-					<%= link_to '[Logout]', session_path(session), method: :delete %>
-				<% end %>
-			    ||
-			    <%= link_to '[Reports]', :controller => :reports, :action => :index %>
+  							<% end %>	 
+						</ul>    
+    				</div>  
+  				</div>  
+			</div> 
 			    <hr/>
-			</td>
-			<td rowspan='2' class='sidepanel'>
-				<!-- right panel -->
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table class='layout_wrapper'>
+			    <table class='main' id='centered'>
 					<%= yield %>
 				</table>
-			</td>
-		</tr>		
-	</table>
+		</div>
+		<div class='span2 panel' id='right_panel' style='background-color:#ca0000'S>
+		</div>
+	</div>
+</div>
 </body>
 </html>
+<script>
+  boxes = $('.panel');
+
+  maxHeight = Math.max.apply(
+  	Math, boxes.map(function() {
+      return $(this).height();
+    }).get());
+
+  boxes.height(maxHeight);
+</script>
+
