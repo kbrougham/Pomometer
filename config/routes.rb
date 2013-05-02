@@ -13,7 +13,7 @@ Pomometer::Application.routes.draw do
   match "reports/:id" => "reports#show"
   
   match "reports/" => "reports#index"
-  
+
   resources :admins
 
   resources :milestones
