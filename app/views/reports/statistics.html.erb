@@ -1,42 +1,59 @@
 <!-- <table class='main' width='70%'>-->
-	<tr class='table_header'>
-		<td>
-			Start date:  
-		</td>
-		<td>
+	<div class='row'>
+		<div class='span2'></div>
+		<div class='span2'>
+			<h4>Start date:</h4>  
+		</div>
+		<div class='span2'>
 			<%= select_date(@start_date, :prefix => 'started') %>
-		</td>
-	</tr>
-	<tr class='table_header'>
-		<td>
-			End Date:
-		</td>
-		<td>
+		</div>
+		<div class='span2'></div>
+	</div>
+	<div class='row'>
+		<div class='span2'></div>
+		<div class='span2'>
+			<h4>End Date:</h4>
+		</div>
+		<div class='span2'>
 			<%= select_date(@end_date, :prefix => 'ended') %>
-		</td>
-	</tr>
+		</div>
+		<div class='span2'></div>
+	</div>
 
-	<tr>
-		<td></td>
-		<td>
+	<div class='row'>
+		<div class='span2'></div>
+		<div class='span4' id='centered'>
 			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
-		</td>
-	</tr>
+		</div>
+		<div class='span2'></div>
+	</div>
 
-	<tr>
-		<td class='table_header'># of Pomodoro</td>
-		<td><%= @pomodoro_completed %></td>
-	</tr>
-	<tr>
-		<td class='table_header'>Minutes worked</td>
-		<td><%= @hours_worked %>h <%= @minutes_worked %>m</td>
-	</tr>
+	<div class='row'>
+		<div class='span8'>
+			<br/>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='span2'></div>
+		<div class='span2'><h4># of Pomodoro</h4></div>
+		<div class='span2'><h4 style='color:green'><%= @pomodoro_completed %></h4></div>
+		<div class='span2'></div>
+	</div>
+	
+	<div class='row'>
+		<div class='span2'></div>
+		<div class='span2'><h4>Minutes worked</h4></div>
+		<div class='span2'><h4 style='color:green'><%= @hours_worked %>h <%= @minutes_worked %>m</h4></div>
+		<div class='span2'></div>
+	</div>
+	
 	<tr>
 		<td>
-			<div id="chart_div" style="margin: 0 auto"/>
+			<div class='span4' id="chart_div" style="margin: 0 auto"/>
 		</td>
 		<td>
-			<div id="chart_div2" style="margin: 0 auto"/>
+			<div class='span4' id="chart_div2" style="margin: 0 auto"/>
 		</td>
 	</tr>
 <!-- </table>-->

@@ -1,26 +1,42 @@
-<p id="notice"><%= notice %></p>
-  <tr>
-    <td>
-      <h1>Project List</h1>
-    </td>
-    <td colspan='2'>
-      <% if session[:admin_id] != nil %>
-        <h4><%= link_to 'New Project', new_project_path %></h4>
-      <% end %>  
-    </td>
-  </tr>
+
+
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><p id="notice"><%= notice %></p></div>
+  <div class='span3'></div>
+</div>
+
+<div class='row'>
+  <div class='span2'></div>
+  <div class='span4'><h1>Project List</h1><h4><%= link_to 'New Project', new_project_path %></h4></div>
+  <div class='span2'></div>
+</div>
+
 
 <% @projects.each do |project| %>
-  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td><%= link_to project.name, project %></td>
-    <% if session[:admin_id] != nil %>
-      <td class='hidable'><%= link_to 'Edit', edit_project_path(project) %></td>
-      <td class='hidable'><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
+<div class='row table_row_setup'>
+<% if session[:admin_id] != nil %>
+<div class='span2'></div>
+  <div class='span4 <%= cycle('alternating_even', 'alternating_odd') -%>'>
+    <div class='table_span_setup fifty_percent'><%= link_to project.name, project %></div>
+    <div class='table_span_setup'><%= link_to 'Edit', edit_project_path(project) %> -- <%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+<div class='span2'></div>
+<% else %>
+  <div class='span3'></div>
+  <div class='span2 <%= cycle('alternating_even', 'alternating_odd') -%>'><%= link_to project.name, project %></div>
+  <div class='span3'></div>
 <% end %>
+</div>
+<% end %>
+
 <% if @projects.empty? %>
-  <tr class="alternating_even">
-    <td colspan='3'><em>There are no current projects</em></td>
-  </tr>
-<% end %>
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><em>There are no current projects</em></div>
+  <div class='span3'></div>
+</div>
+<% end %> 
+
+
+  
