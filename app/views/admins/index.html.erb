@@ -1,23 +1,32 @@
-<tr>
-  <td><h1>Current Admins</h1></td>
-  <td>
-    <% if session[:admin_id] != nil %>
-      <h4 style="text-align:left"><%= link_to 'New Admin', new_admin_path %></h4>
-    <% end %>
-  </td>
-</tr>
-  
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><p id="notice"><%= notice %></p></div>
+  <div class='span3'></div>
+</div>
 
-<table class='admins_main'>
+<div class='row'>
+  <div class='span2'></div>
+  <div class='span4'>
+    <h1>Current Admins</h1>
+    <% if session[:admin_id] != nil %>
+        <h4><%= link_to 'New Admin', new_admin_path %></h4>
+    <% end %>
+  </div>
+  <div class='span2'></div>
+</div>
+
+<table class='table'>
 
   <% if @admins.empty? %>
+  <tbody>
     <tr>
       <td>
         <h2 style="text-align:center">You don't have any admins added yet.</h2>
       </td>
     </tr>
+  </tbody>
   <% else %>
-
+<thead>
   <tr>
     <th>Username</th>
     <th>Password</th>
@@ -28,7 +37,8 @@
       <th></th>
     <% end %>
   </tr>
-
+</thead>
+<tbody>
 <% @admins.each do |admin| %>
   <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
     <td><%= admin.username %></td>
@@ -40,6 +50,7 @@
     <% end %>
   </tr>
 <% end %>
+</tbody>
 <% end %>
 </table>
 

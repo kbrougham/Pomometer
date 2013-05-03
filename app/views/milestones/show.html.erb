@@ -2,7 +2,10 @@
 
 <p>
   <b>Name:</b>
-  <%= @milestone.name %> | <%= link_to 'Edit', edit_milestone_path(@milestone) %> 
+  <%= @milestone.name %>
+  <% if session[:admin_id] != nil %>
+     | <%= link_to 'Edit', edit_milestone_path(@milestone) %> 
+  <% end %>
 </p>
 
 <p>
@@ -35,7 +38,9 @@
         <tr>
           <td><%= link_to task.name, task %></td>
           <td><%= task.project.name %></td>
-          <td><%= link_to 'Edit', edit_task_path(task) %></td>
+          <% if session[:admin_id] != nil %>
+            <td><%= link_to 'Edit', edit_task_path(task) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
