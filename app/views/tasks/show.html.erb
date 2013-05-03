@@ -1,33 +1,40 @@
-<p id="notice"><%= notice %></p>
-<div class= "task_id" data-id= <%= params[:id] %> style= "display: none;">
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><p id="notice"><%= notice %></p></div>
+  <div class= "task_id" data-id= <%= params[:id] %> style= "display: none;"></div>
+  <div class='span3'></div>
 </div>
 
-<tr>
-    <td>
-      <h1><%=@task.name%></h1>
-    </td>
-    <td>
-      <% if session[:admin_id] != nil %>
+<div class='row'>
+  <div class='span2'></div>
+  <div class='span4'>
+    <h1><%=@task.name%></h1>
+    <% if session[:admin_id] != nil %>
         <h4><%= link_to 'New Result', new_result_path %></h4>
-      <% end %>
-    </td>
- </tr>
+    <% end %>
+  </div>
+  <div class='span2'></div>
+</div>
 
-<tr>
-  <td colspan='2'>
-    <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
-  </td>  
-</tr>
+<div class='row'>
+  <div class='span2'><%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%></div>
+  <div class='span4'></div>
+  <div class='span2'></div>
+</div>
 
-<table class='results_main'>  
+
+
+<table class='table'>  
   <% if @results.empty? %>
+  <tbody>
     <tr>
       <td>
         <h2 style="text-align:center">You don't have any results added yet, please add results above.</h2>
       </td>
     </tr>
+  </tbody>
   <% else %>
-
+  <thead>
   	<tr class='table_header'>
   		<td width='10%'>Goal</td>
   	  <td width='30%'>Notes</td>
@@ -35,7 +42,8 @@
   	  <td width='10%'>Duration</td>
   	  <td width='15%' style='text-align: center;'>Ended At</td>
   	</tr>
-
+  </thead>
+  <tbody>
     <% @results.each do |result| %>
     	<tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
         <td><%= link_to result.goal, edit_result_path(result) %></td>
@@ -50,6 +58,7 @@
         <% end %>
       </tr>
     <% end %>
+    </tbody>
   <% end %>
 </table>
 

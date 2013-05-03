@@ -12,30 +12,30 @@
   <div class='span2'></div>
 </div>
 
-
+<table class='table-nonfluid'>
 <% @projects.each do |project| %>
-<div class='row table_row_setup'>
-<% if session[:admin_id] != nil %>
-<div class='span2'></div>
-  <div class='span4 <%= cycle('alternating_even', 'alternating_odd') -%>'>
-    <div class='table_span_setup fifty_percent'><%= link_to project.name, project %></div>
-    <div class='table_span_setup'><%= link_to 'Edit', edit_project_path(project) %> -- <%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-  </div>
-<div class='span2'></div>
-<% else %>
-  <div class='span3'></div>
-  <div class='span2 <%= cycle('alternating_even', 'alternating_odd') -%>'><%= link_to project.name, project %></div>
-  <div class='span3'></div>
+  <% if session[:admin_id] != nil %>
+  <tbody>
+    <tr class='<%= cycle('alternating_even', 'alternating_odd') -%>'>
+      <td><%= link_to project.name, project %></td>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  </tbody>
+  <% else %>
+  <tbody>
+    <tr class='<%= cycle('alternating_even', 'alternating_odd') -%>'>
+      <td><%= link_to project.name, project %></td>
+    </tr>
+  </tbody>
+  <% end %>
 <% end %>
-</div>
-<% end %>
-
 <% if @projects.empty? %>
-<div class='row'>
-  <div class='span3'></div>
-  <div class='span2'><em>There are no current projects</em></div>
-  <div class='span3'></div>
-</div>
+<tbody>
+  <tr>
+  <td><em>There are no current projects</em></td>
+  </tr>
+</tbody>
 <% end %> 
 
 
