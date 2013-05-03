@@ -14,6 +14,8 @@ Pomometer::Application.routes.draw do
   
   match "reports/" => "reports#index"
 
+  match "sessions/destroy" => "sessions#destroy"
+
   resources :admins
 
   resources :milestones

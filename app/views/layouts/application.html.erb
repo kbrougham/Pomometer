@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Pomometer</title>
-  <%= stylesheet_link_tag    'application', media: 'screen' %>
+  <%= stylesheet_link_tag    'application', media: 'screen' %>  
   <%= stylesheet_link_tag    'printing', media: 'print' %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
@@ -80,7 +80,7 @@
     							<% end %>
     							<li><%= link_to 'Reports', :controller => :reports, :action => :index %></li>
     							<li><%= link_to 'Admins', admins_path %></li>
-    							<li><%= link_to 'Logout', session_path(session), method: :delete %></li>
+    							<li><%= link_to 'Logout', :controller => :sessions, :action => :destroy %></li>
 
   							<% end %>	 
 						</ul>    
