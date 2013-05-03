@@ -3,6 +3,7 @@ $darker_red_text: #a00;
 $green_text: #008000;
 $darker_green_text: #003500;
 
+
 .hidable {
   //to prevent missing errors but allow hiding during print
 }
@@ -21,6 +22,12 @@ $darker_green_text: #003500;
 
 .corner_image {
   width: 10%;  
+}
+
+.navbar-inner{
+  background-color: brown;
+  background-image: none;
+  filter: none;
 }
 
 .white_background{
@@ -74,7 +81,8 @@ $darker_green_text: #003500;
 
 .navbar .nav > li > a{
   colour: #008800;
-  text-shadow: none
+  text-shadow: none;
+  font-weight: bold;
 }
 
 .navbar .nav > li > a:hover{
