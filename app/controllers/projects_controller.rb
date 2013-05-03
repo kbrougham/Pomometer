@@ -25,6 +25,8 @@ class ProjectsController < ApplicationController
     if params[:keep_filter].nil?
       @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
     else
+      #session will only be blank if user tries to intentionally break the website
+      #and screw those users.
       if session[:start_date].nil?
         @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
       else
