@@ -36,7 +36,7 @@ class Result < ActiveRecord::Base
 
   #will return in the order #completed, hours, minutes, 1-15 range minutes
   #16-30 range minutes, 31-45 range minutes, 46-60 range minutes
-  def self.result_statistics_by_date_range (sent_results)
+  def self.statistics_of_given_results (sent_results)
     @pomodoro_completed = sent_results.count
 
     @hours_worked = 0

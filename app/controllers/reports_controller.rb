@@ -1,7 +1,4 @@
 class ReportsController < ApplicationController
-	#temporary EST hard code for time's sake
-	Time.zone = "EST"
-
 
 	# /reports
   def index
@@ -10,6 +7,9 @@ class ReportsController < ApplicationController
 
     # /reports/1
   def show
+    #temporary EST hard code for time's sake
+    Time.zone = "Eastern Time (US & Canada)"
+
   	if session[:start_date].nil?
         session[:start_date] = Date.today - 1.month
         session[:end_date] = Date.today
@@ -43,10 +43,15 @@ class ReportsController < ApplicationController
         @results << t
       end
     end
+
+    @results.sort_by!{ |r| r.goal.downcase }
   end
 
 	# /reports/all
 	def all
+    #temporary EST hard code for time's sake
+    Time.zone = "Eastern Time (US & Canada)"
+
 		@tasks = Task.all
 		if session[:start_date].nil?
   			session[:start_date] = Date.today - 1.month
@@ -61,7 +66,7 @@ class ReportsController < ApplicationController
     @start_date = session[:start_date].to_date
   	@end_date = session[:end_date].to_date
   	
-    @results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
+    @results = (Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)).sort_by!{ |r| r.goal.downcase }
 	end
 
     # /reports/statistics
@@ -83,6 +88,6 @@ class ReportsController < ApplicationController
   	@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
   	#@earliest_result = DateTime.now
 	
-    @pomodoro_completed, @hours_worked, @minutes_worked, @minutes_worked_range_1_15, @minutes_worked_range_16_30, @minutes_worked_range_31_45, @minutes_worked_range_46_60 = Result.result_statistics_by_date_range(@results)
+    @pomodoro_completed, @hours_worked, @minutes_worked, @minutes_worked_range_1_15, @minutes_worked_range_16_30, @minutes_worked_range_31_45, @minutes_worked_range_46_60 = Result.statistics_of_given_results(@results)
   end
 end

@@ -25,9 +25,9 @@ class ProjectsController < ApplicationController
     if params[:filter] == true
       
     else
-      @tasks = Task.where("project_id = ? AND milestone_id IS NOT NULL", params[:id]).order("milestone_id, name ASC")
-      @tasks_without_milestone = Task.where(project_id: params[:id], milestone_id: nil).order("name ASC")
-      @tasks_by_milestone = @tasks.group_by { |task| Milestone.find(task.milestone_id).name }
+      @tasks = Task.where("project_id = ? AND milestone_id IS NOT NULL", params[:id]).order("milestone_id, lower(name) ASC")
+      @tasks_without_milestone = Task.where(project_id: params[:id], milestone_id: nil).order("lower(name) ASC")
+      @tasks_by_milestone = @tasks.group_by { |task| Milestone.find(task.milestone_id).name.downcase }
     end
     
     session[:current_project] = @project.id
