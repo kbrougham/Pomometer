@@ -20,13 +20,9 @@
 		<div class='span2'></div>
 	</div>
 
-	<div class='row'>
-		<div class='span2'></div>
-		<div class='span4' id='centered'>
+	
 			<%= button_to "Filter Dates", "javascript:buttonClicked()" %>
-		</div>
-		<div class='span2'></div>
-	</div>
+		
 
 	<div class='row'>
 		<div class='span8'>
@@ -36,7 +32,7 @@
 
 	<div class='row'>
 		<div class='span2'></div>
-		<div class='span2'><h4># of Pomodoro</h4></div>
+		<div class='span2'><h4># of Pomodoros</h4></div>
 		<div class='span2'><h4 style='color:green'><%= @pomodoro_completed %></h4></div>
 		<div class='span2'></div>
 	</div>
@@ -57,7 +53,6 @@
 		</td>
 	</tr>
 <!-- </table>-->
-
 <script>	
 	function buttonClicked(){
 		var start_date_year = $('#started_year').val();
@@ -76,7 +71,6 @@
 </script>
 
 <%= render 'piechart' %>
-<%= render 'barchart' %>
-    
+<%= render 'barchart' %>    
 
     

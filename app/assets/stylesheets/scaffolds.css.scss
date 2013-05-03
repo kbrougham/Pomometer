@@ -7,6 +7,10 @@ $darker_green_text: #003500;
   //to prevent missing errors but allow hiding during print
 }
 
+.content_padding {
+  padding: 25px
+}
+
 .red_text {
   color: $red_text;
 }
@@ -17,6 +21,10 @@ $darker_green_text: #003500;
 
 .corner_image {
   width: 10%;  
+}
+
+.white_background{
+  background-color: white;
 }
 
 .sidepanel {

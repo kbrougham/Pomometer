@@ -1,8 +1,5 @@
-<div class='row'>
-	<div class='span3'></div>
-	<div class='span2'><h1><%=@project.name%></h1></div>
-	<div class='span3'></div>
-</div>
+<h1><%=@project.name%></h1></div>
+	
 
 <div class='row'>
 	<div class='span2'></div>
@@ -20,11 +17,8 @@
 	<div class='span2'></div>
 </div>
 
-<div class='row'>
-	<div class='span2'></div>
-	<div class='span4'><%= button_to "Filter Dates", "javascript:buttonClicked()" %></div>
-	<div class='span2'></div>
-</div>
+<%= button_to "Filter Dates", "javascript:buttonClicked()" %></div>
+	
 
 <table class='table table-striped'>
 	<% if @results.empty? %>

@@ -10,28 +10,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>  
 </head>
-<body>
-<div class='container-fluid'>
+<body style='background-color:#c8c8c8'>
+<div class='container'>
 	<div class='row'>
-		<div class='span2'>
-			<img src="/assets/pomo.png" alt="pomo"></img>
+		<div class='span1'>
+			
 		</div>
-		<div class='span8'>
-			<h1>Welcome to the Pomometer!</h1>
-			<h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
-			<% if session[:admin_id] != nil %>
-				<h4 style="color:green">Welcome Administrator</h4>
-			<% end %>
+		<div class='span10' style='background-color:white'>
+        <img src="/assets/pomo.png" alt="pomo"></img><img src="/assets/pomo.png" alt="pomo"></img><img src="/assets/pomo.png" alt="pomo"></img>
+			   <h1>Welcome to the Pomometer!</h1>
+		  	 <h3><em>Helping you manage Projects, Tasks, and Time!</em></h3>
+			   <% if session[:admin_id] != nil %>
+				  <h4 style="color:green">Welcome Administrator</h4>
+			   <% end %>
 		</div>
-		<div class='span2'>
-			<img src="/assets/pomo.png" alt="pomo"></img>
+		<div class='span1'>
 		</div>
 	</div>
 	<div class='row'>
-		<div class='span2 panel' id='left_panel' style='background-color:#ca0000'>
+		<div class='span1 panel' id='left_panel'>
 		</div>
-		<div class='span8 panel' id='main_panel'>
-			<div class="navbar" id='centered' style='width:100%'>  
+		<div class='span10 panel' id='main_panel' style='background-color:white'>
+      <div class='content_padding'>
+			  <div class="navbar" id='centered' style='width:100%'>  
   				<div class="navbar-inner">  
     				<div class="container-fluid">  
     					<ul class="nav"> 
@@ -91,8 +92,10 @@
 					<%= yield %>
 				</table>
 		</div>
-		<div class='span2 panel' id='right_panel' style='background-color:#ca0000'S>
+  </div>
+		<div class='span1 panel' id='right_panel'>
 		</div>
+
 	</div>
 </div>
 </body>

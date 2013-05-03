@@ -1,20 +1,9 @@
-<div class='row'>
-  <div class='span3'></div>
-  <div class='span2'><p id="notice"><%= notice %></p></div>
-  <div class='span3'></div>
-</div>
+<p id="notice"><%= notice %></p>
 
-<div class='row'>
-  <div class='span2'></div>
-  <div class='span4'>
-    <h1>Current Admins</h1>
-    <% if session[:admin_id] != nil %>
+<h1>Current Admins</h1>
+<% if session[:admin_id] != nil %>
         <h4><%= link_to 'New Admin', new_admin_path %></h4>
-    <% end %>
-  </div>
-  <div class='span2'></div>
-</div>
-
+<% end %>
 <table class='table'>
 
   <% if @admins.empty? %>
