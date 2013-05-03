@@ -1,31 +1,34 @@
-  <tr>
-    <td colspan='2' style="text-align:center">
-      <h1>Reports</h1>
-    </td>
-  </tr>
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><h1>Reports</h1></div>
+  <div class='span3'></div>
+</div>
+
 <% if @projects.empty? %>
-  <tr class="alternating_even">
-    <td colspan='3'><em>There are no current projects</em></td>
-  </tr>
+  <div class='row'>
+    <div class='span2'>
+    <div class='span4'><em>There are no current projects</em></div>
+    <div class='span2'>
+  </div>    
 <% else %>
-  <tr style="text-align:center">
-  	<td>
-      <%= link_to "All projects", controller: "reports", action: "all"%>
-    </td>
-    <td>
-      <%= link_to "Statistics", controller: "reports", action: "statistics" %>
-    </td>
-  </tr>
-  <tr>
-    <td colspan='2' style="text-align:center">
-  	  <%= select_tag "project_dropdown", options_from_collection_for_select(@projects, "id", "name")%>
-  	</td>
-  </tr>
-  <tr style="text-align:center">
-  	<td colspan='2' style="text-align:center">
-  		<%= button_to "View Report", "javascript:buttonClicked()" %>
-  	</td>
-  </tr>
+  <div class='row'>
+    <div class='span2'></div>    
+    <div class='span2'><p><%= link_to "All projects", controller: "reports", action: "all"%></p></div>
+    <div class='span2'><p><%= link_to "Statistics", controller: "reports", action: "statistics" %></p></div>
+    <div class='span2'></div>
+  </div>
+
+  <div class='row'>
+    <div class='span2'></div>
+    <div class='span4'><%= select_tag "project_dropdown", options_from_collection_for_select(@projects, "id", "name")%></div>
+    <div class='span2'></div>
+  </div>
+
+  <div class='row'>
+    <div class='span2'></div>
+    <div class='span4'><%= button_to "View Report", "javascript:buttonClicked()" %></div>
+    <div class='span2'></div>
+  </div>
 <% end %>
 
 <script>

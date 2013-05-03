@@ -25,6 +25,7 @@ class ReportsController < ApplicationController
 
   	@project = Project.find(params[:id])
   	@tasks = Task.where(project_id: @project.id)
+
   	#@results = nil
  	
   	#@tasks.each do |task|

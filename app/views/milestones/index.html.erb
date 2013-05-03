@@ -1,50 +1,57 @@
-<tr>
-  <td><h1>Current Milestones</h1></td>
-  <td>
+<div class='row'>
+  <div class='span3'></div>
+  <div class='span2'><h1>Current Milestones</h1></div>
+  <div class='span3'></div>
+</div>
+
+<div class='row'>
+  <div class='span2'></div>
+  <div class='span4'>
     <% if session[:admin_id] != nil %>
-      <h4 style="text-align:left"><%= link_to 'New Milestone', new_milestone_path %></h4>
+      <h4><%= link_to 'New Milestone', new_milestone_path %></h4>
     <% end %>
-  </td>
-</tr>
-  <td colspan='2' style="text-align:center">
-  <%= time_zone_select( "user", "time_zone", nil, default: session[:selected_time_zone] )%>
-</td> 
-<tr>
-</tr>
+  </div>
+  <div class='span2'></div>
+</div>
 
-<table class='milestones_main'>
-
+<table class='table table-striped'>
   <% if @milestones.empty? %>
-    <tr>
-      <td>
-        <h2 style="text-align:center">You don't have any milestones added yet.</h2>
-      </td>
-    </tr>
+    <thead>
+      <tr>
+        <td>
+          <h2 style="text-align:center">You don't have any milestones added yet.</h2>
+        </td>
+      </tr>
+    </thead>
   <% else %>
+    <thead>
+      <tr class='table_header'>
+        <th>Name</th>
+        <th>Starts at</th>
+        <th>Ends at</th>
+        <th></th>
+        <% if session[:admin_id] != nil %>
+          <th></th>
+          <th></th>
+        <% end %>
+      </tr>
+    </thead>
 
-  <tr class='table_header'>
-    <th>Name</th>
-    <th>Starts at</th>
-    <th>Ends at</th>
-    <th></th>
-    <% if session[:admin_id] != nil %>
-      <th></th>
-      <th></th>
-    <% end %>
-  </tr>
-
-<% @milestones.each do |milestone| %>
-  <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
-    <td><%= link_to milestone.name, milestone %></td>
-    <td style='text-align:center;'><%= milestone.starts_at.in_time_zone %></td>
-    <td style='text-align:center'><%= milestone.ends_at.in_time_zone %></td>
-    <% if session[:admin_id] != nil %>
-      <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
-      <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
-<% end %>
-<% end %>
+    <tbody>
+      <% @milestones.each do |milestone| %>
+        <tr class="<%= cycle('alternating_even', 'alternating_odd') -%>">
+          <td><%= link_to milestone.name, milestone %></td>
+          <td><%= milestone.starts_at.in_time_zone %></td>
+          <td><%= milestone.ends_at.in_time_zone %></td>
+        
+          <% if session[:admin_id] != nil %>
+            <td><%= link_to 'Edit', edit_milestone_path(milestone) %></td>
+            <td><%= link_to 'Delete', milestone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
 </table>
 
 <script>
