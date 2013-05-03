@@ -83,35 +83,6 @@ class ReportsController < ApplicationController
   	@results = Result.where(started_at: @start_date.beginning_of_day..@end_date.end_of_day)
   	#@earliest_result = DateTime.now
 	
-  	@pomodoro_completed = @results.count
-
-  	@hours_worked = 0
-  	@minutes_worked = 0
-
-  	@minutes_worked_range_1_15 = 0
-  	@minutes_worked_range_16_30 = 0
-  	@minutes_worked_range_31_45 = 0
-  	@minutes_worked_range_46_60 = 0
-
-  	@results.each do |result|
-  		@minutes_worked = @minutes_worked + result.duration
-
-  		#if result.started_at < @earliest_result
-  		#	@earliest_result = result.started_at
-  		#end
-  	
-      	if (result.duration <= 15)
-    		@minutes_worked_range_1_15 += 1
-      	elsif (result.duration <= 30)
-    		@minutes_worked_range_16_30 += 1
-      	elsif (result.duration <= 45)
-    		@minutes_worked_range_31_45 += 1
-      	else
-    		@minutes_worked_range_46_60 += 1
-      	end
-    end 
-
-  	@hours_worked = @minutes_worked / 60
-  	@minutes_worked = @minutes_worked % 60  
+    @pomodoro_completed, @hours_worked, @minutes_worked, @minutes_worked_range_1_15, @minutes_worked_range_16_30, @minutes_worked_range_31_45, @minutes_worked_range_46_60 = Result.result_statistics_by_date_range(@results)
   end
 end

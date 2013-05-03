@@ -34,6 +34,36 @@ class Result < ActiveRecord::Base
       end
   end
 
-  
+  #will return in the order #completed, hours, minutes, 1-15 range minutes
+  #16-30 range minutes, 31-45 range minutes, 46-60 range minutes
+  def self.result_statistics_by_date_range (sent_results)
+    @pomodoro_completed = sent_results.count
 
+    @hours_worked = 0
+    @minutes_worked = 0
+
+    @minutes_worked_range_1_15 = 0
+    @minutes_worked_range_16_30 = 0
+    @minutes_worked_range_31_45 = 0
+    @minutes_worked_range_46_60 = 0
+
+    sent_results.each do |sent_result|
+      @minutes_worked = @minutes_worked + sent_result.duration
+    
+      if (sent_result.duration <= 15)
+        @minutes_worked_range_1_15 += 1
+      elsif (sent_result.duration <= 30)
+        @minutes_worked_range_16_30 += 1
+      elsif (sent_result.duration <= 45)
+        @minutes_worked_range_31_45 += 1
+      else
+        @minutes_worked_range_46_60 += 1
+      end
+    end
+
+    @hours_worked = @minutes_worked / 60
+    @minutes_worked = @minutes_worked % 60 
+
+    return @pomodoro_completed, @hours_worked, @minutes_worked, @minutes_worked_range_1_15, @minutes_worked_range_16_30, @minutes_worked_range_31_45, @minutes_worked_range_46_60
+  end
 end
