@@ -36,8 +36,6 @@ Pomometer::Application.routes.draw do
 
   resources :sessions
 
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

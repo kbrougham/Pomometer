@@ -26,7 +26,19 @@ class TasksController < ApplicationController
     Time.zone = session[:selected_time_zone]
 
     @task = Task.find(params[:id])
-    @results = Result.where(task_id: params[:id]).order("goal ASC")
+
+    if params[:keep_filter].nil?
+      @results = Result.where(task_id: params[:id]).order("lower(goal) ASC")
+    else
+      #session will only be blank if user tries to intentionally break the website
+      #and screw those users.
+      if session[:start_date].nil?
+        @results = Result.where(task_id: params[:id]).order("lower(goal) ASC")
+      else
+        @results = Result.where(started_at: session[:start_date].beginning_of_day..session[:end_date].end_of_day, task_id: params[:id]).order("lower(goal) ASC")
+      end
+    end
+
     session[:current_task] = params[:id]
     if @task.milestone_id.nil?
       session[:current_milestone] = nil

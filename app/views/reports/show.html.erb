@@ -42,6 +42,9 @@
 				Started At
 			</td>
 			<td>
+				Duration
+			</td>
+			<td>
 				Ended At
 			</td>
 			<td>
@@ -62,10 +65,14 @@
 						<%= result.started_at %>
 					</td>
 					<td>
+						<%= result.duration %>
+					</td>
+					<td>
 						<%= result.ended_at %>
 					</td>
 					<td>
-						<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+						<% @temp_task = Task.find(result.task_id) %>
+						<%= link_to @temp_task.name, ("/tasks/" + result.task_id.to_s + "?keep_filter=true") %>
 					</td>
 				</tr>
 			<% end %>

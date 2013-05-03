@@ -22,12 +22,16 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @milestones = Milestone.order("lower(name) ASC")
 
-    if params[:filter] == true
-      
+    if params[:keep_filter].nil?
+      @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
     else
-      @tasks = Task.where("project_id = ? AND milestone_id IS NOT NULL", params[:id]).order("milestone_id, lower(name) ASC")
-      @tasks_without_milestone = Task.where(project_id: params[:id], milestone_id: nil).order("lower(name) ASC")
-      @tasks_by_milestone = @tasks.group_by { |task| Milestone.find(task.milestone_id).name.downcase }
+      #session will only be blank if user tries to intentionally break the website
+      #and screw those users.
+      if session[:start_date].nil?
+        @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
+      else
+        @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.date_filtered_task_list_find_and_separation(params[:id], session[:start_date], session[:end_date])
+      end
     end
     
     session[:current_project] = @project.id
