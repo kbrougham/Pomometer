@@ -26,10 +26,11 @@ class TasksController < ApplicationController
     Time.zone = session[:selected_time_zone]
 
     @task = Task.find(params[:id])
+
     if params[:keep_filter].nil?
-      @results = Result.where(started_at: session[:start_date].beginning_of_day..session[:end_date].end_of_day, task_id: params[:id]).order("lower(goal) ASC")
-    else
       @results = Result.where(task_id: params[:id]).order("lower(goal) ASC")
+    else
+      @results = Result.where(started_at: session[:start_date].beginning_of_day..session[:end_date].end_of_day, task_id: params[:id]).order("lower(goal) ASC")
     end
 
     session[:current_task] = params[:id]
