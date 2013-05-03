@@ -22,15 +22,14 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @milestones = Milestone.order("lower(name) ASC")
 
-    if params[:filter].nil?
+    if params[:keep_filter].nil?
       @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
-      #@tasks = Task.where("project_id = ? AND milestone_id IS NOT NULL", params[:id]).order("milestone_id, lower(name) ASC")
-      #@tasks_without_milestone = Task.where(project_id: params[:id], milestone_id: nil).order("lower(name) ASC")
-      #@tasks_by_milestone = @tasks.group_by { |task| Milestone.find(task.milestone_id).name.downcase }
     else
-      #find all results
-      #array of task_ids from results
-      #tasks with those ids + project id
+      if session[:start_date].nil?
+        @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.task_list_find_and_separation(params[:id])
+      else
+        @tasks, @tasks_without_milestone, @tasks_by_milestone = Task.date_filtered_task_list_find_and_separation(params[:id], session[:start_date], session[:end_date])
+      end
     end
     
     session[:current_project] = @project.id

@@ -78,7 +78,7 @@
 					</td>
 					<td>
 						<% @list_project = Project.find(@list_task.project_id) %>
-						<%= link_to @list_project.name, @list_project %>
+						<%= link_to @list_project.name, ("/projects/" + @list_project.id.to_s + "?keep_filter=true") %>
 					</td>
 				</tr>
 			</tbody>
