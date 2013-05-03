@@ -71,7 +71,8 @@
 						<%= result.ended_at %>
 					</td>
 					<td>
-						<%= link_to Task.find(result.task_id).name, Task.find(result.task_id) %>
+						<% @temp_task = Task.find(result.task_id) %>
+						<%= link_to @temp_task.name, @temp_task %>
 					</td>
 				</tr>
 			<% end %>
